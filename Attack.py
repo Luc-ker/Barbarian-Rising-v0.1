@@ -22,6 +22,8 @@ class Attack():
 
   def __init__(self,attack):
     details = get_stats(attack)
+    if type(details) != tuple:
+      raise TypeError
     
     self.internal_name = details[0]
     self.display_name = details[1]

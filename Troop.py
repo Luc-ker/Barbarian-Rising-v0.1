@@ -38,6 +38,8 @@ class Troop():
     troop = troop.upper().replace(" ","")
     dbstats = get_base_stats(troop,level)
     info = get_troop_info(troop)
+    if type(dbstats) != tuple:
+      raise TypeError
 
     self.int_name = troop
     self.name = info[1]
@@ -66,7 +68,7 @@ class Troop():
     if type(weapon) != Weapon:
       print("This weapon is not valid.")
       return
-    elif self.weapons[weapon.type] != None:
+    elif self.weapons[weapon.type] is not None:
       choice = input(f"{self.weapons[weapon.type].display_name} is already equipped. Equip the new weapon? (y/n)")
       while choice != "y" and choice != "n":
         print("Invalid input.")
@@ -78,6 +80,8 @@ class Troop():
 
   def calc_stats(self):
     stats = get_base_stats(self.int_name,self.level)
+    if type(stats) != tuple:
+      raise TypeError
     self.stats.update({
       "hp":stats[1],
       "attack":stats[2],
@@ -86,7 +90,7 @@ class Troop():
       "ability_level":stats[5]
     })
     for weapon in self.weapons.values():
-      if weapon != None:
+      if weapon is not None:
         for newStat in weapon.stats.items():
           operation,modifier,stat = newStat[1].split(":")[0],float(newStat[1].split(":")[1]),newStat[0]
           if operation == "mult":

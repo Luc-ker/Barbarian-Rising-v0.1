@@ -18,6 +18,8 @@ class Ability():
 
   def __init__(self,ability):
     details = get_stats(ability)
+    if type(details) != tuple:
+      raise TypeError
     
     self.internal_name = details[0]
     self.display_name = details[1]

@@ -14,7 +14,7 @@ def see_table(file,table):
     print(rows)
     for row in result:
       print(row)
-  except:
+  except FileNotFoundError:
     print("Table does not exist.")
 
 def main():

@@ -37,6 +37,8 @@ def update_troop_stats():
     if os.path.exists("./Data/troop_stats.db"):
       os.remove("./Data/troop_stats.db")
     connection = sqlite3.connect("./Data/troop_stats.db")
+    troop = None
+    cursor = connection.cursor()
     for line in f1:
       if line[0] == "#" or line == "\n":
         pass
@@ -184,7 +186,7 @@ def update_all():
   add_update()
 
 def main():
-  if should_update() == False:
+  if not shold_update():
     print("Not updating databases.")
     return False
   # Database building

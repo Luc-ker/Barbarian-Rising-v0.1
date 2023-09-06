@@ -20,6 +20,8 @@ class Weapon():
 
   def __init__(self,weapon):
     details = get_stats(weapon)
+    if type(details) != tuple:
+      raise TypeError
     
     self.internal_name = details[0]
     self.display_name = details[1]

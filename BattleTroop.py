@@ -5,7 +5,7 @@ def make_array(str):
   return str[1:-1].split(":")
 
 def digit_range_check(vari,min=1,max=4):
-  if len(vari) != 1 or vari.isdigit() == False or (int(vari) < min or int(vari) > max):
+  if len(vari) != 1 or not vari.isdigit() or (int(vari) < min or int(vari) > max):
     return False
   return True
 
@@ -78,17 +78,18 @@ class BattleTroop(Troop):
 
   def chooseAction(self):
     option = input("What would you like to do?\n1: Attack\n2: Power\n")
-    while digit_range_check(option,1,2) == False:
+    while not digit_range_check(option,1,2):
       print("Invalid option.")
       option = input("What would you like to do?\n1: Attack\n2: Power\n")
     return int(option)
 
   def selectTarget(self,enemies):
+    i = 0
     for i,x in enumerate(enemies):
       print(f"{i+1}: {x.name}")
     print(f"{i+2}: Return")
     choice = input("Select an enemy to attack. ")
-    while digit_range_check(choice,1,i+2) == False:
+    while not digit_range_check(choice,1,i+2):
       print("Invalid input.")
       choice = input("Select an enemy to attack. ")
     if int(choice) == i+2:
@@ -96,11 +97,12 @@ class BattleTroop(Troop):
     return int(choice)-1
 
   def selectAttack(self):
+    i = 0
     for i,x in enumerate(self.attacks):
       print(f"{i+1}: {x.display_name}")
     print(f"{i+2}: Return")
     choice = input("Select an attack to use. ")
-    while digit_range_check(choice,max=i+2) == False:
+    while not digit_range_check(choice,max=i+2):
       print("Invalid input.")
       choice = input("Select an attack to use. ")
     if int(choice) == i+2:
