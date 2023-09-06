@@ -54,7 +54,7 @@ class Battle():
             if attack != None: targets = troop.selectTarget(self.enemyTroops)
             if targets != None: attacked = troop.attack(attack,self.enemyTroops[targets])
           elif choice == 2:
-            power = troop.selectPower()
+            power = self.selectPower(self.player)
             if power != None: targets = troop.selectTarget(self.enemyTroops)
             if targets != None: attacked = troop.usePower(power,self.enemyTroops[targets])
         attack.effect(self.queue,troop,targets)
@@ -73,5 +73,22 @@ class Battle():
       troop.resetAV()
       self.queue.enqueue(troop)
       self.queue.printActionOrder()
+
+  def selectPower(self,player):
+    if len(player.powers) == 0: return None
+    for i,x in enumerate(player.powers):
+      print(f"{i+1}: {x}")
+    print(f"{i+2}: Return")
+    choice = input("Select an power to use. ")
+    while digit_range_check(choice,max=i+2) == False:
+      print("Invalid input.")
+      choice = input("Select an power to use. ")
+    if int(choice) == i+2:
+      return None
+    return player.powers[int(choice)-1]
+
+  def usePower(self,power,enemy):
+    print(f"{power} was used on {enemy.name}!")
+    return True
       
     

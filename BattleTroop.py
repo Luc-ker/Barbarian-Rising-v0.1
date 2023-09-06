@@ -16,13 +16,12 @@ class BattleTroop(Troop):
   flying = None
   broken = False
   
-  def __init__(self,troop,level=1,powers=[]):
+  def __init__(self,troop,level=1):
     if type(troop) == str:
       super().__init__(troop,level)
     elif type(troop) == Troop:
       super().__init__(troop.int_name,troop.level)
       self.weapons = troop.weapons
-      self.powers = powers
       self.ownedBy = "Player"
     else:
       raise TypeError("Not a valid troop.")
@@ -108,18 +107,6 @@ class BattleTroop(Troop):
       return None
     return self.attacks[int(choice)-1]
 
-  def selectPower(self):
-    for i,x in enumerate(self.powers):
-      print(f"{i+1}: {x}")
-    print(f"{i+2}: Return")
-    choice = input("Select an power to use. ")
-    while digit_range_check(choice,max=i+2) == False:
-      print("Invalid input.")
-      choice = input("Select an power to use. ")
-    if int(choice) == i+2:
-      return None
-    return self.powers[int(choice)-1]
-
   def attack(self,attack,enemy):
     damage = int(attack.power/10)
     enemy.stats["hp"] -= damage
@@ -129,8 +116,4 @@ class BattleTroop(Troop):
       if enemy.shield <= 0:
         enemy.shield = 0
         enemy.broken = True
-    return True
-
-  def usePower(self,power,enemy):
-    print(f"{power} was used on {enemy.name}!")
     return True
