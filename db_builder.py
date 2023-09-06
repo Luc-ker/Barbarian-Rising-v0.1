@@ -186,7 +186,7 @@ def update_all():
   add_update()
 
 def main():
-  if not shold_update():
+  if not should_update():
     print("Not updating databases.")
     return False
   # Database building
