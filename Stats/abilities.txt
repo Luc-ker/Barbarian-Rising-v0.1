@@ -1,0 +1,2 @@
+# int_name,display_name,description
+RAGE,Rage,For the first few turns of the battle, the user is raged.
