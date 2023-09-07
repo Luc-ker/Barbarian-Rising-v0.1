@@ -31,9 +31,12 @@ class Battle():
 
   def start(self):
     enemies = self.enemyTroops
-    last = enemies.pop()
-    print(f"Battle occured between {self.barb.name} vs {', '.join([i.name for i in enemies])} and {last.name}")
-    self.enemyTroops.append(last)
+    if len(enemies) == 1:
+      print(f"Battle occured between {self.barb.name} vs {enemies[0].name}")
+    else:
+      last = enemies.pop()
+      print(f"Battle occured between {self.barb.name} vs {', '.join([i.name for i in enemies])} and {last.name}")
+      self.enemyTroops.append(last)
     self.queue.enqueue(self.barb)
     for enemy in self.enemyTroops:
       self.queue.enqueue(enemy)

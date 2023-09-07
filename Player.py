@@ -9,6 +9,9 @@ class Player():
   def __init__(self, name):
     self.name = name
     self.id = ""
+    self.max_gold = 3000
+    self.max_elixir = 3000
+    self.max_d_elixir = 0
     self.gold = 500
     self.elixir = 500
     self.d_elixir = 0

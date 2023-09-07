@@ -1,5 +1,5 @@
 from Battle import Battle
 from BattleTroop import BattleTroop
 
-def giantBattle(player):
-    giant = BattleTroop("giant",5)
+def golblinBattle(player):
+    Battle(player,[BattleTroop("goblin",1),BattleTroop("goblin",1),BattleTroop("goblin",1)])
