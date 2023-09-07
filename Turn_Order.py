@@ -55,11 +55,14 @@ class PriorityQueue():
   def newRound(self):
     self.printActionOrder()
     troop = self.dequeue()
-    troop.unbreak()
-    troop.resetAV()
-    self.toZero()
-    self.enqueue(troop)
-
+    if type(troop) == BattleTroop:
+      troop.unbreak()
+      troop.resetAV()
+      self.toZero()
+      self.enqueue(troop)
+    else:
+      raise TypeError("Troop is invalid.")
+  
   def __str__(self):
     return ' '.join([str(i) for i in self.queue])
 
@@ -74,10 +77,10 @@ class PriorityQueue():
 
 if __name__ == '__main__':
   myQueue = PriorityQueue()
-  myQueue.enqueue(BattleTroop("A", 3, 3, 130))
-  myQueue.enqueue(BattleTroop("B", 6, 4, 120))
-  myQueue.enqueue(BattleTroop("C", 2, 1, 119))
-  myQueue.enqueue(BattleTroop("D", 2, 1, 122))
+  myQueue.enqueue(BattleTroop("barbarian", 3))
+  myQueue.enqueue(BattleTroop("giant", 2))
+  myQueue.enqueue(BattleTroop("archer", 1))
+#  myQueue.enqueue(BattleTroop("D", 122))
   myQueue.printActionOrder()
   myQueue.queue[0].changeSpeed(myQueue,-25)
   myQueue.printActionOrder()
