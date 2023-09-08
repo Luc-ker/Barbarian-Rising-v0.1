@@ -1,0 +1,4 @@
+#internal_name,name,cooldown,type,element,target,description
+ARCHER,Archer,4,dmg,WIND,SingleTarget,Deals Wind damage to an enemy.
+WALLBREAKER,Wall Breaker,1,WallBreak,FIRE,single target,Deals major damage to walls.
+

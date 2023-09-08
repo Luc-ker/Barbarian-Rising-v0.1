@@ -73,6 +73,7 @@ def update_attacks():
       display_name varchar(255),
       element varchar(255),
       power int,
+      target varchar(255),
       effect_code varchar(255),
       flags varchar(100),
       shield_damage int,
@@ -88,8 +89,8 @@ def update_attacks():
       else:
         attack = line[:-1].split(",")
         print(f"Creating row for {attack[0]}...")
-        desc = ",".join(attack[7:-1] + [attack[-1]])
-        sqlInsertCommand = f"""INSERT INTO ATTACKS VALUES ("{attack[0]}","{attack[1]}","{attack[2]}","{attack[3]}","{attack[4]}","{attack[5]}","{attack[6]}","{desc}");"""
+        desc = ",".join(attack[8:-1] + [attack[-1]])
+        sqlInsertCommand = f"""INSERT INTO ATTACKS VALUES ("{attack[0]}","{attack[1]}","{attack[2]}","{attack[3]}","{attack[4]}","{attack[5]}","{attack[6]}","{attack[7]}","{desc}");"""
         cursor.execute(sqlInsertCommand)
         connection.commit()
   print("Attack database updated.")
@@ -177,12 +178,42 @@ def update_abilities():
         connection.commit()
   print("Ability database updated.")
 
+def update_power_info():
+  with open("./Stats/power_info.txt", "r") as f1:
+    if os.path.exists("./Data/power_info.db"):
+      os.remove("./Data/power_info.db")
+    sqlCreateCommand = """CREATE TABLE IF NOT EXISTS POWERS(
+      internal_name varchar(255),
+      display_name varchar(255),
+      cooldown int,
+      type varchar(255),
+      element varchar(255),
+      target varchar(255),
+      description varchar(510),
+      PRIMARY KEY(internal_name)
+    );"""
+    connection = sqlite3.connect("./Data/power_info.db")
+    cursor = connection.cursor()
+    cursor.execute(sqlCreateCommand)
+    for line in f1:
+      if line[0] == "#" or line == "\n":
+        pass
+      else:
+        power = line[:-1].split(",")
+        print(f"Creating row for {power[0]}...")
+        desc = ",".join(power[6:-1] + [power[-1]])
+        sqlInsertCommand = f"""INSERT INTO POWERS VALUES ("{power[0]}","{power[1]}","{power[2]}","{power[3]}","{power[4]}","{power[5]}","{desc}");"""
+        cursor.execute(sqlInsertCommand)
+        connection.commit()
+  print("Power info database updated.")
+
 def update_all():
   update_troop_stats()
   update_attacks()
   update_weapons()
   update_troop_info()
   update_abilities()
+  update_power_info()
   add_update()
 
 def main():

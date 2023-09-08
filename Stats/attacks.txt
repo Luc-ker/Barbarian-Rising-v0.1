@@ -1,4 +1,4 @@
-# internal name,display name,element,power,effect code,flags,shield dmg,description
+# internal name,display name,element,power,target,effect code,flags,shield dmg,description
 #------------------------------------
 # Effect Code
 # 000 - No effect
@@ -8,12 +8,12 @@
 # Properties
 # f = attacks flying enemies
 #------------------------------------
-SLASH,Slash,Physical,50,000,,1,The user slashes the enemy.
-SUPERSLASH,Super Slash,Physical,80,000,,2,The user slashes the enemy.
-UPPERSLASH,Uppercut Slash,Physical,65,000,f,2,The user performs an uppercut that slashes the enemy.
-QUICKDRAWSLASH,Quick Draw Slash,Physical,40,001,,1,The user slashes the enemy and increases its speed.
-PUNCH,Punch,Physical,60,000,,1,The user punches the enemy.
-SLAP,Slap,Physical,60,002,,1,The user slaps the enemy, lowering its defence.
-WINDLASS,Windlass,Wind,50,000,f,2,The user fires a bow at the enemy.
-GOLDRUSH,Gold Rush,Wind,40,001,,1,The user attacks, increasing its speed and stealing the target's gold in the process.
-PAYDAY,Pay Day,Wind,60,001,,2,The user scatters gold which explodes and double combos the enemy.
+SLASH,Slash,PHYSICAL,50,SingleTarget,000,,1,The user slashes the enemy.
+SUPERSLASH,Super Slash,PHYSICAL,80,SingleTarget,000,,2,The user slashes the enemy.
+UPPERSLASH,Uppercut Slash,PHYSICAL,65,SingleTarget,000,f,2,The user performs an uppercut that slashes the enemy.
+QUICKDRAWSLASH,Quick Draw Slash,PHYSICAL,40,SingleTarget,001,,1,The user slashes the enemy and increases its speed.
+PUNCH,Punch,PHYSICAL,60,SingleTarget,000,,1,The user punches the enemy.
+SLAP,Slap,PHYSICAL,60,SingleTarget,002,,1,The user slaps the enemy, lowering its defence.
+WINDLASS,Windlass,WIND,50,SingleTarget,000,f,2,The user fires a bow at the enemy.
+GOLDRUSH,Gold Rush,WIND,40,SingleTarget,001,,1,The user attacks, increasing its speed and stealing the target's gold in the process.
+PAYDAY,Pay Day,WIND,60,SingleTarget,001,,2,The user scatters gold which explodes and double combos the enemy.
