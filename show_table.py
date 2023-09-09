@@ -1,5 +1,4 @@
 import sqlite3
-#import os
 
 def see_table(file,table):
   table = table.upper()

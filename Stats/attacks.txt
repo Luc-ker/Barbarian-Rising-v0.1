@@ -2,8 +2,9 @@
 #------------------------------------
 # Effect Code
 # 000 - No effect
-# 001 - Increase user's speed by 10%
-# 002 - Decrease target's defense by 10%
+# IncreaseUserSpd10 - Increase user's speed by 10%
+# LowerTargetDef10 - Lower target's defense by 10%
+# SelfKO - KOes the user
 #------------------------------------
 # Properties
 # f = attacks flying enemies
@@ -11,9 +12,10 @@
 SLASH,Slash,PHYSICAL,50,SingleTarget,000,,1,The user slashes the enemy.
 SUPERSLASH,Super Slash,PHYSICAL,80,SingleTarget,000,,2,The user slashes the enemy.
 UPPERSLASH,Uppercut Slash,PHYSICAL,65,SingleTarget,000,f,2,The user performs an uppercut that slashes the enemy.
-QUICKDRAWSLASH,Quick Draw Slash,PHYSICAL,40,SingleTarget,001,,1,The user slashes the enemy and increases its speed.
-PUNCH,Punch,PHYSICAL,60,SingleTarget,000,,1,The user punches the enemy.
-SLAP,Slap,PHYSICAL,60,SingleTarget,002,,1,The user slaps the enemy, lowering its defence.
+QUICKDRAWSLASH,Quick Draw Slash,PHYSICAL,40,SingleTarget,IncreaseUserSpd10,,1,The user slashes the enemy and increases its speed.
+EARTHQUAKEPUNCH,Earthquake Punch,PHYSICAL,60,SingleTarget,000,,1,The user punches the ground, causing an earthquake.
+SLAP,Slap,PHYSICAL,60,SingleTarget,LowerTargetDef10,,1,The user slaps the enemy, lowering its defence.
 WINDLASS,Windlass,WIND,50,SingleTarget,000,f,2,The user fires a bow at the enemy.
-GOLDRUSH,Gold Rush,WIND,40,SingleTarget,001,,1,The user attacks, increasing its speed and stealing the target's gold in the process.
-PAYDAY,Pay Day,WIND,60,SingleTarget,001,,2,The user scatters gold which explodes and double combos the enemy.
+GOLDRUSH,Gold Rush,WIND,40,SingleTarget,IncreaseUserSpd10,,1,The user attacks, increasing its speed and stealing the target's gold in the process.
+PAYDAY,Pay Day,WIND,60,SingleTarget,IncreaseUserSpd10,,2,The user scatters gold which explodes and double combos the enemy.
+EXPLOSION,Explosion,FIRE,80,Blast,SelfKO,f,2,The user blows itself up to deal major damage.

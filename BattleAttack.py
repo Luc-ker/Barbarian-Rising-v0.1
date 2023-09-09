@@ -15,6 +15,6 @@ class BattleAttack(Attack):
 class BattleAttack_000(BattleAttack):
     pass
     
-class BattleAttack_001(BattleAttack):
+class BattleAttack_IncreaseUserSpd10(BattleAttack):
     def effect(self,queue,user,target):
         user.changeSpeed(queue,user.stats["speed"]*0.2)

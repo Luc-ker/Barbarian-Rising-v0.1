@@ -62,6 +62,7 @@ class Battle():
             if targets != None: attacked = troop.usePower(power,self.enemyTroops[targets])
         attack.effect(self.queue,troop,targets)
       else:
+        # Call Troop's AI instead of random?
         choice = random.randint(0,len(troop.attacks)-1)
         attack = troop.attacks[choice]
         troop.attack(attack,self.barb)

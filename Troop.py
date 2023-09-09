@@ -97,3 +97,8 @@ class Troop():
             self.stats.update({stat: int(self.stats[stat]*modifier)})
           elif operation == "plus":
             self.stats.update({stat: int(self.stats[stat]+modifier)})
+
+  def level_up(self,levels=1):
+    self.level += levels
+    print(f"{self.name} gained {levels} level(s)!")
+    self.calc_stats()

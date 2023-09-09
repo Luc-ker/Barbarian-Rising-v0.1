@@ -16,7 +16,6 @@ class Weapon():
   display_name = ""
   type = ""
   description = ""
-  stats = {}
 
   def __init__(self,weapon):
     details = get_stats(weapon)

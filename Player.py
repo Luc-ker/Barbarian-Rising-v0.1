@@ -16,12 +16,33 @@ class Player():
     self.elixir = 500
     self.d_elixir = 0
     self.barbarian = Troop("barbarian")
-    self.powers = []
+    self.unlocked_powers = []
+    self.active_powers = []
+    self.power_limit = 3
+    self.unlocked_moves = []
+    self.active_moves = []
+    self.move_limit = 2
 
   def addPower(self, power):
     if type(power) != Power:
       raise TypeError("Not a valid power.")
-    elif power.name in [power.name for power in self.powers]:
+    elif power.name in [x.name for x in self.unlocked_powers]:
       print("You have already obtained that power.")
     else:
-      self.powers.append(power)
+      self.unlocked_powers.append(power)
+
+  def equipPower(self, power):
+    if type(power) != Power:
+      raise TypeError("Not a valid power.")
+    elif power.name in [x.name for x in self.active_powers]:
+      print("You have already equipped that power.")
+    else:
+      self.active_powers.append(power)
+      self.unlocked_powers.remove(power)
+
+  def unequipPower(self, power):
+    if type(power) != Power:
+      raise TypeError("Not a valid power.")
+    else:
+      self.active_powers.remove(power)
+
