@@ -1,11 +1,11 @@
 import db_builder
-#import show_table
+import show_table
 from Weapon import Weapon
 from Battle import Battle
 from Player import Player
 
 db_builder.main()
-#show_table.main()
+show_table.main()
 player = Player("A")
 battler = player.barbarian
 """

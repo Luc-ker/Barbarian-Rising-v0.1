@@ -53,7 +53,6 @@ class PriorityQueue():
       i.action -= dequeue
 
   def newRound(self):
-    self.printActionOrder()
     troop = self.dequeue()
     if type(troop) == BattleTroop:
       troop.unbreak()
@@ -62,6 +61,8 @@ class PriorityQueue():
       self.enqueue(troop)
     else:
       raise TypeError("Troop is invalid.")
+    self.printActionOrder()
+    self.printBattlerDetails()
   
   def __str__(self):
     return ' '.join([str(i) for i in self.queue])
@@ -73,6 +74,11 @@ class PriorityQueue():
         print(i.name)
       else:
         print(i.name, round(i.action))
+
+  def printBattlerDetails(self):
+    print("Battlers:")
+    for i in self.queue:
+      print(i.name, i.hp)
 
 
 if __name__ == '__main__':

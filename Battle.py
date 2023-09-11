@@ -55,18 +55,18 @@ class Battle():
           if choice == 1:
             attack = troop.selectAttack()
             if attack != None: targets = troop.selectTarget(self.enemyTroops)
-            if targets != None: attacked = troop.attack(attack,self.enemyTroops[targets])
+            if targets != None: attacked = troop.attack(self,attack,self.enemyTroops[targets])
           elif choice == 2:
             power = self.selectPower(self.player)
             if power != None: targets = troop.selectTarget(self.enemyTroops)
-            if targets != None: attacked = troop.usePower(power,self.enemyTroops[targets])
-        attack.effect(self.queue,troop,targets)
+            if targets != None: attacked = troop.usePower(self,power,self.enemyTroops[targets])
+        attack.effect(self,troop,targets)
       else:
         # Call Troop's AI instead of random?
         choice = random.randint(0,len(troop.attacks)-1)
         attack = troop.attacks[choice]
-        troop.attack(attack,self.barb)
-        attack.effect(self.queue,troop,self.barb)
+        troop.attack(self,attack,self.barb)
+        attack.effect(self,troop,self.barb)
       if self.barb.stats["hp"] <= 0:
         input("Press Enter to retreat.")
         return 0

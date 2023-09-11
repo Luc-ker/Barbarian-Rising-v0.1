@@ -62,6 +62,7 @@ class BattleTroop(Troop):
     self.broken = True
     self.pushBack(25)
     self.updateQueue(queue)
+    print(f"{self.name} was broken!")
 
   def updateQueue(self,queue):
     queue.dequeue(queue.getPos(self))
@@ -109,7 +110,7 @@ class BattleTroop(Troop):
       return None
     return self.attacks[int(choice)-1]
 
-  def attack(self,attack,enemy):
+  def attack(self,battle,attack,enemy):
     damage = int(attack.power/10)
     enemy.stats["hp"] -= damage
     print(f"{self.name} used {attack.display_name} and {enemy.name} was dealt {damage} damage!")
@@ -117,5 +118,5 @@ class BattleTroop(Troop):
       enemy.shield -= attack.shieldDamage
       if enemy.shield <= 0:
         enemy.shield = 0
-        enemy.broken = True
+        enemy.breakShield(battle.queue)
     return True

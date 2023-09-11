@@ -29,10 +29,11 @@ class Attack():
     self.display_name = details[1]
     self.element = details[2]
     self.power = details[3]
-    self.effectCode = details[4]
-    self.properties = details[5]
-    self.shieldDamage = details[6]
-    self.description = details[7]
+    self.target = details[4]
+    self.effectCode = details[5]
+    self.properties = details[6]
+    self.shieldDamage = details[7]
+    self.description = details[8]
 
   def __str__(self):
     return self.display_name
