@@ -5,8 +5,8 @@ class BattleAttack(Attack):
         super().__init__(attack)
 
     def convert(self):
-        clas = globals()[f"BattleAttack_{self.effectCode}"]
-        atk = clas(self.internal_name)
+        attack_class = globals()[f"BattleAttack_{self.effectCode}"]
+        atk = attack_class(self.internal_name)
         return atk
 
     def effect(self,queue,user,target): pass

@@ -9,13 +9,15 @@
 # Properties
 # f = attacks flying enemies
 #------------------------------------
-SLASH,Slash,PHYSICAL,50,SingleTarget,000,,1,The user slashes the enemy.
-SUPERSLASH,Super Slash,PHYSICAL,80,SingleTarget,000,,2,The user slashes the enemy.
-UPPERSLASH,Uppercut Slash,PHYSICAL,65,SingleTarget,000,f,2,The user performs an uppercut that slashes the enemy.
-QUICKDRAWSLASH,Quick Draw Slash,PHYSICAL,40,SingleTarget,IncreaseUserSpd10,,1,The user slashes the enemy and increases its speed.
+SLASH,Slash,PHYSICAL,50,SingleTarget,000,,1,The user slashes the target.
+SUPERSLASH,Super Slash,PHYSICAL,80,SingleTarget,000,,2,The user slashes the target.
+UPPERSLASH,Uppercut Slash,PHYSICAL,65,SingleTarget,000,f,2,The user performs an uppercut that slashes the .
+QUICKDRAWSLASH,Quick Draw Slash,PHYSICAL,40,SingleTarget,IncreaseUserSpd10,,1,The user slashes the  and increases its speed.
 EARTHQUAKEPUNCH,Earthquake Punch,PHYSICAL,60,SingleTarget,000,,1,The user punches the ground, causing an earthquake.
-SLAP,Slap,PHYSICAL,60,SingleTarget,LowerTargetDef10,,1,The user slaps the enemy, lowering its defence.
-WINDLASS,Windlass,WIND,50,SingleTarget,000,f,2,The user fires a bow at the enemy.
+SLAP,Slap,PHYSICAL,60,SingleTarget,LowerTargetDef10,,1,The user slaps the , lowering its defence.
+WINDLASS,Windlass,WIND,50,SingleTarget,000,f,2,The user fires a bow at the .
 GOLDRUSH,Gold Rush,WIND,40,SingleTarget,IncreaseUserSpd10,,1,The user attacks, increasing its speed and stealing the target's gold in the process.
-PAYDAY,Pay Day,WIND,60,SingleTarget,IncreaseUserSpd10,,2,The user scatters gold which explodes and double combos the enemy.
+PAYDAY,Pay Day,WIND,60,SingleTarget,IncreaseUserSpd10,,2,The user scatters gold which explodes and double combos the .
 EXPLOSION,Explosion,FIRE,80,Blast,SelfKO,f,2,The user blows itself up to deal major damage.
+PARADE,Parade,FIRE,70,SingleTarget,000,2,The user drops bombs onto the target.
+BALLOONSTORM,Balloon Storm,WIND,70,AoE,000,2,The user rushes past the target, creating a gust to attack the target.

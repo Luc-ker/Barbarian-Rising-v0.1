@@ -14,4 +14,4 @@ battler3 = Troop("archer")
 
 battler.equip(Weapon("LONSDALEITESWORD"))
 battler.equip(Weapon("WOODENSHIELD"))
-battle = Battle(player,["giant"])
+battle = Battle(player,["balloon"])

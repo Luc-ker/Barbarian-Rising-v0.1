@@ -54,11 +54,14 @@ class Battle():
           choice = troop.chooseAction()
           if choice == 1:
             attack = troop.selectAttack()
-            if attack != None: targets = troop.selectTarget(self.enemyTroops)
+            if attack.target == "AoE":
+              attacked = troop.attack(self,attack,self.enemyTroops)
+            elif attack != None:
+              targets = troop.selectTarget(attack,self.enemyTroops)
             if targets != None: attacked = troop.attack(self,attack,self.enemyTroops[targets])
           elif choice == 2:
             power = self.selectPower(self.player)
-            if power != None: targets = troop.selectTarget(self.enemyTroops)
+            if power != None: targets = troop.selectTarget(power,self.enemyTroops)
             if targets != None: attacked = troop.usePower(self,power,self.enemyTroops[targets])
         attack.effect(self,troop,targets)
       else:

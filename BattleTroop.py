@@ -1,5 +1,6 @@
 from Troop import Troop, get_troop_info
 from BattleAttack import BattleAttack
+from Status import Status
 
 def make_array(str):
   return str[1:-1].split(":")
@@ -29,7 +30,7 @@ class BattleTroop(Troop):
     self.weaknesses = make_array(info[4])
     self.resistances = make_array(info[5])
     self.shield = info[6]
-    self.flying = (info[7] == 1)
+    self.flying = (info[7] == "true")
     self.buffs = []
     self.debuffs = []
     self.broken = False
@@ -41,6 +42,15 @@ class BattleTroop(Troop):
 
   def __str__(self):
     return self.name
+    
+  def calc_stats(self):
+    self.stats = self.base_stats
+    for buff in self.buffs:
+      if buff.stat is not None:
+        if buff.operand == "mult":
+          self.stats.update({buff.stat: self.stats[buff.stat]+self.stats[buff.stat]*buff.mult})
+        elif buff.operand == "add":
+          self.stats.update({buff.stat: self.stats[buff.stat]+buff.mult})
 
   def resetAV(self):
     self.action = self.original_action
@@ -84,7 +94,7 @@ class BattleTroop(Troop):
       option = input("What would you like to do?\n1: Attack\n2: Power\n")
     return int(option)
 
-  def selectTarget(self,enemies):
+  def selectTarget(self,attack,enemies):
     i = 0
     for i,x in enumerate(enemies):
       print(f"{i+1}: {x.name}")
@@ -111,12 +121,15 @@ class BattleTroop(Troop):
     return self.attacks[int(choice)-1]
 
   def attack(self,battle,attack,enemy):
-    damage = int(attack.power/10)
-    enemy.stats["hp"] -= damage
-    print(f"{self.name} used {attack.display_name} and {enemy.name} was dealt {damage} damage!")
-    if enemy.shield > 0 and attack.element in enemy.weaknesses:
-      enemy.shield -= attack.shieldDamage
-      if enemy.shield <= 0:
-        enemy.shield = 0
-        enemy.breakShield(battle.queue)
+    if enemy.flying and "f" not in attack.flags:
+      print("The attack couldn't reach!")
+    else:
+      damage = int(attack.power/10)
+      enemy.stats["hp"] -= damage
+      print(f"{self.name} used {attack.display_name} and {enemy.name} was dealt {damage} damage!")
+      if enemy.shield > 0 and attack.element in enemy.weaknesses:
+        enemy.shield -= attack.shieldDamage
+        if enemy.shield <= 0:
+          enemy.shield = 0
+          enemy.breakShield(battle.queue)
     return True
