@@ -51,17 +51,35 @@ class BattleTroop(Troop):
           self.stats.update({buff.stat: self.stats[buff.stat]+self.stats[buff.stat]*buff.mult})
         elif buff.operand == "add":
           self.stats.update({buff.stat: self.stats[buff.stat]+buff.mult})
+        elif buff.operand == "minus":
+          self.stats.update({buff.stat: self.stats[buff.stat]-buff.mult})
 
   def resetAV(self):
     self.action = self.original_action
+
+  def addBuff(self,buff):
+    if type(buff) != Status:
+      raise TypeError
+    self.buffs.append(buff)
+    self.calc_stats()
+
+  def addDebuff(self,debuff):
+    if type(debuff) != Status:
+      raise TypeError
+    self.debuffs.append(debuff)
+    self.calc_stats()
 
   def changeSpeed(self, queue, speed):
     if speed == 0:
       return
     elif speed > 0:
-      self.buffs.append(Status("Speed Buff",stat="speed",operand="add",mult=speed))
+      print(self.stats["speed"])
+      print(self.action)
+      self.addBuff(Status("Speed Buff","speed","add",speed))
+      print(self.stats["speed"])
+      print(self.action)
     elif speed < 0:
-      pass
+      self.addDebuff(Status("Speed Debuff","speed","minus",speed))
     distance = self.stats["speed"] * self.action
     self.stats["speed"] += speed
     self.updateAction()

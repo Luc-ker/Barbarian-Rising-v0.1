@@ -1,4 +1,4 @@
-def Status():
+class Status():
   def __init__(self,name,stat=None,operand=None,mult=None):
     self.name = name
     self.stat = stat

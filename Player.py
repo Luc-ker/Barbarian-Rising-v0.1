@@ -22,6 +22,7 @@ class Player():
     self.unlocked_moves = []
     self.active_moves = []
     self.move_limit = 2
+    self.stamina = 240
 
   def addPower(self, power):
     if type(power) != Power:

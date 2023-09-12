@@ -1,6 +1,7 @@
 from BattleTroop import BattleTroop
 from Player import Player
 from Turn_Order import PriorityQueue
+from BattleAttack import BattleAttack
 import os
 import random
 
@@ -42,6 +43,7 @@ class Battle():
       self.queue.enqueue(enemy)
     self.queue.toZero()
     self.queue.printActionOrder()
+    self.barb.attacks.append(BattleAttack("QUICKDRAWSLASH").convert())
     self.mainLoop()
 
   def mainLoop(self):
@@ -79,7 +81,6 @@ class Battle():
       self.queue.toZero()
       troop.resetAV()
       self.queue.enqueue(troop)
-      self.queue.printActionOrder()
 
   def selectPower(self,player):
     if len(player.powers) == 0: return None
@@ -87,7 +88,7 @@ class Battle():
       print(f"{i+1}: {x}")
     print(f"{i+2}: Return")
     choice = input("Select an power to use. ")
-    while digit_range_check(choice,max=i+2) == False:
+    while not digit_range_check(choice,max=i+2):
       print("Invalid input.")
       choice = input("Select an power to use. ")
     if int(choice) == i+2:

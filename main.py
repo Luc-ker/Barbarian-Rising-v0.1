@@ -3,6 +3,7 @@ import show_table
 from Weapon import Weapon
 from Battle import Battle
 from Player import Player
+from Attack import Attack
 
 db_builder.main()
 show_table.main()
@@ -14,4 +15,4 @@ battler3 = Troop("archer")
 
 battler.equip(Weapon("LONSDALEITESWORD"))
 battler.equip(Weapon("WOODENSHIELD"))
-battle = Battle(player,["balloon"])
+battle = Battle(player,["giant"])
