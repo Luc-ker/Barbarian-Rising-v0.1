@@ -102,20 +102,3 @@ class Troop():
     self.level += levels
     print(f"{self.name} gained {levels} level(s)!")
     self.calc_stats()
-
-  def learn(self,attack):
-    if type(attack) != Attack:
-      print("Not a valid attack.")
-      return
-    if len(self.attacks) >= 4:
-      for i,x in enumerate(self.attacks):
-        print(i+1,x)
-      choice = input("Select an attack to replace.")
-      if not choice.isdigit():
-        return
-      elif int(choice) < 1 or int(choice) > len(self.attacks) + 1:
-        return
-      else:
-        self.attacks[int(choice)-1] = attack
-    else:
-      self.attacks.append(attack)

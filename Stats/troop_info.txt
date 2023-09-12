@@ -1,11 +1,47 @@
-# int_name,display_name,ability,attacks (separate with :),weaknesses,resistances,shield,flying
+# int_name,display_name,ability,attacks (separate with :),weaknesses,resistances,shield,flying,desc.
 #------------------------------------
-BARBARIAN,Barbarian,RAGE,[SLASH:UPPERSLASH],[],[],0,false,This fearless warrior relies on his bulging muscles and striking mustache to wreak havoc in enemy villages. Release a horde of Barbarians and enjoy the mayhem!
+# Player
+#------------------------------------
+BARBARIAN,Barbarian,RAGE,[SLASH],[],[],0,false,This fearless warrior relies on his bulging muscles and striking mustache to wreak havoc in enemy villages. Release a horde of Barbarians and enjoy the mayhem!
+#------------------------------------
+# Powers
+#------------------------------------
 ARCHER,Archer,,[WINDLASS],[PHYSICAL:ICE],[],2,false,This sharpshooter likes to keep their distance on the battlefield and in life. Nothing makes them happier than single-mindedly taking down their target.
-GIANT,Giant,,[EARTHQUAKEPUNCH:SLAP],[WIND:PHYSICAL:FIRE],[EARTH],3,false,These big guys may seem calm, but show them a turret or cannon and you'll see their fury unleashed! Slow yet durable, these warriors are best used to soak up hits.
-GOBLIN,Goblin,,[GOLDRUSH:PAYDAY],[PHYSICAL],[],2,false,These pesky little creatures only have eyes for one thing: LOOT! They are faster than a Spring Trap, and their hunger for resources is limitless.
-WALLBREAKER,Wall Breaker,,[EXPLOSION],[WIND,ICE],[FIRE],2,false,Nothing warms a Wall Breaker's cold and undead heart like blowing up walls. A squad of them will make way for your ground units, and they will do it with a BANG!
+WALLBREAKER,Wall Breaker,,[EXPLOSION],[HOLY:ICE],[FIRE],1,false,Nothing warms a Wall Breaker's cold and undead heart like blowing up walls. A squad of them will make way for your ground units, and they will do it with a BANG!
 WIZARD,Wizard,,[FIREBALL],[PHYSICAL],[FIRE],2,false,The Wizard is a terrifying presence on the battlefield. Pair him up with some of his fellows and cast concentrated blasts of destruction on anything, land or sky!
-ICEWIZARD,Ice Wizard,,[ICESHARD:ICEBEAM],[PHYSICAL],[],2,false,This Legendary wizard slows down enemy defenses with destructive shards of ice!
-BALLOON,Balloon,,[PARADE:BALLOONSTORM],[WIND],[GROUND],2,true,These promoted skeletons have traded in their joy of destroying walls for a joy of destroying defenses. Deploy them to take out pesky mortars and cannons!
+ICEWIZARD,Ice Wizard,FROSTBITE,[ICESHARD:ICEBEAM],[PHYSICAL:FIRE],[ICE],2,false,This Legendary wizard slows down enemy defenses with destructive shards of ice!
+HEALER,Healer,,[HEALPULSE],[WIND],[ICE:LIGHTNING],[],3,true,This majestic creature lives to protect and aid her fellow troops. Any army is improved with her healing support, but make sure to protect her!
+DRAGONRIDER,Dragon Rider,CRASHANDBURN,[FIREBLAST:KAMIKAZE],[ICE:LIGHTNING:HOLY],[FIRE:ICE],3,true,This aerial engine of destruction readily and frankly, quite excitedly lays waste to any defense it comes across. The skeleton onboard swears he's not touching the controls.
+HEADHUNTER,Headhunter,POISONTOUCH,[DISCARD],[HOLY:LIGHTNING],[DARK],2,false,Headhunter has just one job: taking out enemy heroes. As her other job, she works at the village apothecary. She's lightweight enough to jump over walls and her poisoned weapons make her targets move and attack slower.
+APPENTICEWARDEN,Appentice Warden,LIFEAURA,[HOLYBEAM],[DARK:PHYSICAL],[HOLY],2,false,Despite his grand ambitions, Apprentice Warden is still just a student. Supports troops with his magical Life Aura and less-magical slingshot.
+#------------------------------------
+# Enemy Troops (Elixir)
+#------------------------------------
+GIANT,Giant,,[EARTHQUAKEPUNCH:SLAP],[WIND:PHYSICAL:FIRE],[GEO],3,false,These big guys may seem calm, but show them a turret or cannon and you'll see their fury unleashed! Slow yet durable, these warriors are best used to soak up hits.
+GOBLIN,Goblin,,[GOLDRUSH:PAYDAY],[PHYSICAL],[],1,false,These pesky little creatures only have eyes for one thing: LOOT! They are faster than anything, and their hunger for resources is limitless.
+BALLOON,Balloon,BALLONPARADE,[PARADE:BALLOONSTORM],[WIND:LIGHTNING:HOLY],[],2,true,These promoted skeletons have traded in their joy of destroying walls for a joy of destroying defenses.
+BABYDRAGON,Baby Dragon,TANTRUM,[FLAMEBREATH],[DARK:LIGHTNING],[FIRE],3,true,This fire-breathing hatchling is shy around other air units, but leave it alone and it will throw a fit! When not around other air units, Baby Dragons become enraged and gain bonus damage and attack speed.
+MINER,Miner,BLASTER,[SHOVELATTACK:DRILLUP],[ICE:WIND],[GEO],2,false,These sneaky shovelers burrow underground, pass beneath walls, and pop up right next to their targets.
+YETI,Yeti,YETIMITECOUNTER,[FROSTYHUG:ICESMASHER],[FIRE:GEO],[ICE],3,false,The heavy-hitting furry fellow digs cold weather and his Yetimite buddies. Hurt him, and you'll make the Yetimites real angry.
+#------------------------------------
+# Enemy Troops (Dark Elixir)
+#------------------------------------
+MINION,Minion,,[SWARM],[HOLY],[WIND],1,true,This terror of the skies was born out of Dark Elixir. Undetectable by the Seeking Air Mine, Minions materialize with ease, but are fragile in our world.
+HOGRIDER,Hog Rider,,[RECKLESSCHARGE:MALLETSTRIKE],[WIND:FIRE],[GEO],2,false,Having tamed the fierce leaping hog, the Hog Rider punishes those who hide behind their puny walls! Fueled by Dark Elixir, these warriors have never known defeat!
+VALKYRIE,Valkyrie,,[WHIRLWINDBLOW:AXECHOP],[GEO:FIRE],[],2,false,A master of the two-handed axe, this glorious warrior runs between nearby buildings and can shred several troops or buildings at once with her whirlwind blow!
+GOLEMITE,Golemite,,[HEADSMASH],[WIND],[],2,false,Golemites are smaller Golems constructed within the gargantuan creature. When the Golem is destroyed, the Golemites spring to life and keep fighting!
+WITCH,Witch,NECROMANCER,[NECROBEAM:SKELETONMARCH],[HOLY:LIGHTNING],[DARK],3,false,The Witch never fights alone, constantly raising dead warriors from past battles to lead her attacks. Upgraded Witches raise more skeletons at a time.
+SKELETON,Skeleton,,[SLASH],[HOLY:LIGHTNING],[],1,false,This undead creature poses little threat by itself. But it never fights alone, since the Witch can summon an endless horde of Skeletons against your enemy!
+LAVAPUP,Lava Pup,,[FIRESPIT],[ICE:DARK],[],1,true,Thrust out in big numbers after a Lava Hound dies, these tiny creatures keep up the fight for a little while longer.
+BOWLER,Bowler,DOUBLESTRIKE,[STRIKEOUT],[PHYSICAL:ICE],[GEO],3,false,This big blue dude digs the simple things in life - Dark Elixir drinks and throwing rocks. His massive boulders bounce off their targets and hit again behind it for a double strike!
+ICEGOLEM,Ice Golem,FREEZEBLAST,[ICETOUCH],[FIRE:PHYSICAL:GEO],[ICE],3,false,The Ice Golem has a chilling personality and absolutely zero sense of humour. He frosts over everything he touches, freezes his surroundings when destroyed and ices up when talked to at a party.
+#------------------------------------
+# Bosses
+#------------------------------------
+DRAGON,Dragon,,[FLAMETHROWER:WINGBLAST],[DARK:LIGHTNING:PHYSICAL],[FIRE:ICE],4,true,The might of the dragons are known throughout the land. This scaly terror of the skies feels no mercy and nothing will escape the fiery splashes of his breath.
+PEKKA,P.E.K.K.A,,[CHOP:ONIGIRI],[FIRE:LIGHTNING:DARK],[ICE:PHYSICAL:GEO],4,false,Is P.E.K.K.A a knight? A samurai? A robot? No one knows! P.E.K.K.A's armor absorbs even the mightiest of blows.
+GOLEM,Golem,SPLITAPART,[ROCKHAMMER:ROCKSHIELD],[WIND],[PHYSICAL:LIGHTNING:FIRE],6,false,The mighty Golem loves to soak up damage! When destroyed, it explodes and splits into Golemites. The resulting Golemites have one-fifth the Golem's strength and hitpoints.
+LAVAHOUND,Lava Hound,LAVAREPUPDUCTION,[FIRESPIT],[ICE:DARK],[FIRE:PHYSICAL:LIGHTNING],6,true,These fiery beasts can't resist chasing after Air Defenses, providing excellent protection for other troops. Once destroyed, they erupt into many smaller, weaker menaces.
+EDRAG,Electro Dragon,LIGHTNINGBURST,[LIGHTNINGBLAST:WINGBLAST],[ICE:DARK:PHYSICAL],[LIGHTNING],5,true,Possessing iron-tough scales and a breath of devastating lightning, the Electro Dragon's favorite thing is raining destruction from above. When vanquished, the Electro Dragon even pummels the ground with lightning strikes!
+ELECTROTITAN,Electro Titan,REPULSIONFIELD,[LIGHTNINGWHIP:THUNDERSTOMP],[PHYSICAL:GEO:ICE],[LIGHTNING:FIRE],6,false,Barely controlling her raw magical power, the Electro Titan is a formidable force on the battlefield. She channels some of her magic into a powerful electro whip while the rest spills out to damage everything around her.
 

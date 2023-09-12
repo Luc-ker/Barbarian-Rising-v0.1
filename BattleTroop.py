@@ -1,6 +1,7 @@
 from Troop import Troop, get_troop_info
 from BattleAttack import BattleAttack
 from Status import Status
+import random
 
 def make_array(str):
   return str[1:-1].split(":")
@@ -144,6 +145,23 @@ class BattleTroop(Troop):
       return None
     return self.attacks[int(choice)-1]
 
+  def selectPower(self,player):
+    if len(player.powers) == 0: return None
+    for i,x in enumerate(player.powers):
+      print(f"{i+1}: {x}")
+    print(f"{i+2}: Return")
+    choice = input("Select an power to use. ")
+    while not digit_range_check(choice,max=i+2):
+      print("Invalid input.")
+      choice = input("Select an power to use. ")
+    if int(choice) == i+2:
+      return None
+    return player.powers[int(choice)-1]
+
+  def usePower(self,power,enemy):
+    print(f"{power} was used on {enemy.name}!")
+    return True
+
   def attack(self,battle,attack,enemy):
     if enemy.flying and "f" not in attack.flags:
       print("The attack couldn't reach!")
@@ -157,3 +175,7 @@ class BattleTroop(Troop):
           enemy.shield = 0
           enemy.breakShield(battle.queue)
     return True
+  
+  def ai(self,battle,enemy):
+    #if self.ownedBy == "Player" or self.name in ["Giant"]:
+    return random.choice(self.attacks)

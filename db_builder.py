@@ -45,7 +45,7 @@ def update_troop_stats():
       elif line[0] == "[":
         connection.commit()
         troop = line[1:-2]
-        print(f"Creating table for {troop}'s stats...")
+#        print(f"Creating table for {troop}'s stats...")
         sqlCreateCommand = f"""CREATE TABLE IF NOT EXISTS {troop}(
           level int,
           hp int,
@@ -88,7 +88,7 @@ def update_attacks():
         pass
       else:
         attack = line[:-1].split(",")
-        print(f"Creating row for {attack[0]}...")
+#        print(f"Creating row for {attack[0]}...")
         desc = ",".join(attack[8:-1] + [attack[-1]])
         sqlInsertCommand = f"""INSERT INTO ATTACKS VALUES ("{attack[0]}","{attack[1]}","{attack[2]}","{attack[3]}","{attack[4]}","{attack[5]}","{attack[6]}","{attack[7]}","{desc}");"""
         cursor.execute(sqlInsertCommand)
@@ -115,7 +115,7 @@ def update_weapons():
         pass
       else:
         weapon = line[:-1].split(",")
-        print(f"Creating row for {weapon[0]}...")
+#        print(f"Creating row for {weapon[0]}...")
         desc = ",".join(weapon[4:-1] + [weapon[-1]])
         sqlInsertCommand = f"""INSERT INTO WEAPONS VALUES ("{weapon[0]}","{weapon[1]}","{weapon[2]}","{weapon[3]}","{desc}");"""
         cursor.execute(sqlInsertCommand)
@@ -146,7 +146,7 @@ def update_troop_info():
         pass
       else:
         info = line[:-1].split(",")
-        print(f"Creating row for {info[0]}...")
+#        print(f"Creating row for {info[0]}...")
         desc = ",".join(info[8:-1] + [info[-1]])
         sqlInsertCommand = f"""INSERT INTO TROOPS VALUES ("{info[0]}","{info[1]}","{info[2]}","{info[3]}","{info[4]}","{info[5]}","{info[6]}","{info[7]}","{desc}");"""
         cursor.execute(sqlInsertCommand)
@@ -154,8 +154,8 @@ def update_troop_info():
   print("Troop info database updated.")
 
 def update_abilities():
-  with open("./Stats/abilities.txt", "r") as f1:
-    if os.path.exists("./Data/abilities.db"):
+  with open("./Stats/ability_info.txt", "r") as f1:
+    if os.path.exists("./Data/ability_info.db"):
       os.remove("./Data/abilities.db")
     sqlCreateCommand = """CREATE TABLE IF NOT EXISTS ABILITIES(
       internal_name varchar(255),
@@ -163,7 +163,7 @@ def update_abilities():
       description varchar(510),
       PRIMARY KEY(internal_name)
     );"""
-    connection = sqlite3.connect("./Data/abilities.db")
+    connection = sqlite3.connect("./Data/ability_info.db")
     cursor = connection.cursor()
     cursor.execute(sqlCreateCommand)
     for line in f1:
@@ -171,12 +171,12 @@ def update_abilities():
         pass
       else:
         ability = line[:-1].split(",")
-        print(f"Creating row for {ability[0]}...")
+#        print(f"Creating row for {ability[0]}...")
         desc = ",".join(ability[2:-1] + [ability[-1]])
         sqlInsertCommand = f"""INSERT INTO ABILITIES VALUES ("{ability[0]}","{ability[1]}","{desc}");"""
         cursor.execute(sqlInsertCommand)
         connection.commit()
-  print("Ability database updated.")
+  print("Ability info database updated.")
 
 def update_power_info():
   with open("./Stats/power_info.txt", "r") as f1:
@@ -200,7 +200,7 @@ def update_power_info():
         pass
       else:
         power = line[:-1].split(",")
-        print(f"Creating row for {power[0]}...")
+#        print(f"Creating row for {power[0]}...")
         desc = ",".join(power[6:-1] + [power[-1]])
         sqlInsertCommand = f"""INSERT INTO POWERS VALUES ("{power[0]}","{power[1]}","{power[2]}","{power[3]}","{power[4]}","{power[5]}","{desc}");"""
         cursor.execute(sqlInsertCommand)

@@ -1,0 +1,8 @@
+# int_name,display_name,description
+RAGE,Rage,For the first few turns of the battle, the troop is raged.
+BALLONPARADE,Ballon Parade,The more Balloons, the more damage dealt by the troop's attacks.
+BLASTER,Blaster,The troop's attacks turn into blast attacks.
+NECROMANCER,Necromancer,The more Skeletons spawned throughout the battle, the more damage dealt by the troop's attacks.
+SPLITAPART,Split Apart,The troop splits into Golemites upon defeat.
+LAVAREPUPDUCTION,Lava Repupduction,The troop splits into Lava Pups upon defeat.
+DOUBLESTRIKE,Double Strike,The troop's attacks will hit twice.

@@ -1,12 +1,12 @@
 import sqlite3
 import os
 
-def get_power_info(weapon):
-  if os.path.exists("./Data/weapons.db"):
-    connection = sqlite3.connect("./Data/weapons.db")
+def get_power_info(power):
+  if os.path.exists("./Data/power_info.db"):
+    connection = sqlite3.connect("./Data/power_info.db")
   else:
     return
-  sqlCommand = f"""SELECT * FROM WEAPONS WHERE internal_name = "{weapon}";"""
+  sqlCommand = f"""SELECT * FROM POWERS WHERE internal_name = "{power}";"""
   cursor = connection.cursor()
   cursor.execute(sqlCommand)
   return cursor.fetchall()[0]

@@ -1,4 +1,9 @@
 #internal_name,name,cooldown,type,element,target,description
-ARCHER,Archer,4,dmg,WIND,SingleTarget,Deals Wind damage to an enemy.
+ARCHER,Archer,3,dmg,WIND,SingleTarget,Deals Wind damage to a target.
 WALLBREAKER,Wall Breaker,1,WallBreak,FIRE,SingleTarget,Deals major damage to walls.
-
+WIZARD,Wizard,3,dmg,FIRE,SingleTarget,Deals Fire damage to a target.
+ICEWIZARD,Ice Wizard,4,Freeze,ICE,SingleTarget,Slows an enemy.
+HEALER,Healer,2,heal,HOLY,SingleTarget,Heals a target.
+BOWLER,Bowler,4,dmg,GEO,SingleTarget,Deals Geo damage to a target twice.
+EDRAG,Electro Dragon,5,dmg,LIGHTNING,Blast,Deals blast Lightning damage.
+HEADHUNTER,Headhunter,2,debuff,DARK,SingleTarget,Reduce damage dealt by a single target.

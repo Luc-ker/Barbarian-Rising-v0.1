@@ -2,8 +2,8 @@ import sqlite3
 import os
 
 def get_stats(ability):
-  if os.path.exists("./Data/abilities.db"):
-    connection = sqlite3.connect("./Data/abilities.db")
+  if os.path.exists("./Data/ability_info.db"):
+    connection = sqlite3.connect("./Data/ability_info.db")
   else:
     return
   sqlCommand = f"""SELECT * FROM ABILITIES WHERE internal_name = "{ability}";"""

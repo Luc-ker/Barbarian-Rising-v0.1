@@ -3,7 +3,6 @@ from Player import Player
 from Turn_Order import PriorityQueue
 from BattleAttack import BattleAttack
 import os
-import random
 
 def cls():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -62,14 +61,12 @@ class Battle():
               targets = troop.selectTarget(attack,self.enemyTroops)
             if targets != None: attacked = troop.attack(self,attack,self.enemyTroops[targets])
           elif choice == 2:
-            power = self.selectPower(self.player)
+            power = troop.selectPower(self.player)
             if power != None: targets = troop.selectTarget(power,self.enemyTroops)
             if targets != None: attacked = troop.usePower(self,power,self.enemyTroops[targets])
         attack.effect(self,troop,targets)
       else:
-        # Call Troop's AI instead of random?
-        choice = random.randint(0,len(troop.attacks)-1)
-        attack = troop.attacks[choice]
+        attack = troop.ai(self,self.barb)
         troop.attack(self,attack,self.barb)
         attack.effect(self,troop,self.barb)
       if self.barb.stats["hp"] <= 0:
@@ -81,22 +78,5 @@ class Battle():
       self.queue.toZero()
       troop.resetAV()
       self.queue.enqueue(troop)
-
-  def selectPower(self,player):
-    if len(player.powers) == 0: return None
-    for i,x in enumerate(player.powers):
-      print(f"{i+1}: {x}")
-    print(f"{i+2}: Return")
-    choice = input("Select an power to use. ")
-    while not digit_range_check(choice,max=i+2):
-      print("Invalid input.")
-      choice = input("Select an power to use. ")
-    if int(choice) == i+2:
-      return None
-    return player.powers[int(choice)-1]
-
-  def usePower(self,power,enemy):
-    print(f"{power} was used on {enemy.name}!")
-    return True
       
     
