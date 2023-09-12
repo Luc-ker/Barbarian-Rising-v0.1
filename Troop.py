@@ -102,3 +102,6 @@ class Troop():
     self.level += levels
     print(f"{self.name} gained {levels} level(s)!")
     self.calc_stats()
+
+  def learn(self,move):
+    pass

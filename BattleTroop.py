@@ -56,6 +56,12 @@ class BattleTroop(Troop):
     self.action = self.original_action
 
   def changeSpeed(self, queue, speed):
+    if speed == 0:
+      return
+    elif speed > 0:
+      self.buffs.append(Status("Speed Buff",stat="speed",operand="add",mult=speed))
+    elif speed < 0:
+      pass
     distance = self.stats["speed"] * self.action
     self.stats["speed"] += speed
     self.updateAction()
