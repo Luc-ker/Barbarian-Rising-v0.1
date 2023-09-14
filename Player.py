@@ -18,7 +18,7 @@ class Player():
     self.gold_full = (self.gold == self.max_gold)
     self.elixir_full = (self.elixir == self.max_elixir)
     self.d_elixir_full = (self.d_elixir == self.max_d_elixir)
-    self.barbarian = Troop("barbarian")
+    self.barbarian = Troop("barbarian",5,"Player")
     self.unlocked_powers = []
     self.active_powers = []
     self.power_limit = 3
@@ -29,7 +29,7 @@ class Player():
   def unlockPower(self, power):
     if type(power) != Power:
       power = Power(power)
-    elif power.name in [x.name for x in self.unlocked_powers]:
+    elif power.display_name in [x.name for x in self.unlocked_powers]:
       print("You have already obtained that power.")
     else:
       self.unlocked_powers.append(power)
@@ -37,7 +37,7 @@ class Player():
   def equipPower(self, power):
     if type(power) != Power:
       raise TypeError("Not a valid power.")
-    elif power.name in [x.name for x in self.active_powers]:
+    elif power.display_name in [x.name for x in self.active_powers]:
       print("You have already equipped that power.")
     else:
       self.active_powers.append(power)
@@ -51,30 +51,30 @@ class Player():
 
   def unlockAttack(self, attack):
     if type(attack) != Attack:
-      attack = Power(attack)
-    elif attack.name in [x.name for x in self.unlocked_attacks]:
+      attack = Attack(attack)
+    elif attack.display_name in [x.name for x in self.unlocked_attacks]:
       print("You have already unlocked that attack.")
     else:
       self.unlocked_attacks.append(attack)
 
   def teachAttack(self,attack):
     if type(attack) != Attack:
-      raise TypeError("Not a valid attack.")
+      attack = Attack(attack)
     if len(self.barbarian.attacks) >= 4:
-      for i,x in enumerate(self.attacks):
+      for i,x in enumerate(self.barbarian.attacks):
         print(i+1,x)
       choice = input("Select an attack to replace.")
       if not choice.isdigit():
         return
-      elif int(choice) < 1 or int(choice) > len(self.attacks) + 1:
+      elif int(choice) < 1 or int(choice) > len(self.barbarian.attacks) + 1:
         return
       else:
         replaced = self.barbarian.attacks[int(choice)-1]
         self.barbarian.attacks[int(choice)-1] = attack
-        print(f"{replaced.name} was forgotten for {attack.name}!")
+        print(f"{replaced.display_name} was forgotten for {attack.display_name}!")
     else:
       self.barbarian.attacks.append(attack)
-      print(f"Barbarian learnt {attack.name}!")
+      print(f"Barbarian learnt {attack.display_name}!")
 
   def forgetAttack(self, attack):
     if type(attack) != Attack:

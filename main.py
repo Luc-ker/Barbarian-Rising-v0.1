@@ -8,6 +8,7 @@ from Attack import Attack
 db_builder.main()
 show_table.main()
 player = Player("A")
+player.teachAttack("QUICKDRAWSLASH")
 battler = player.barbarian
 """
 battler3 = Troop("archer")

@@ -31,9 +31,10 @@ class Attack():
     self.power = details[3]
     self.target = details[4]
     self.effectCode = details[5]
-    self.flags = details[6]
-    self.shieldDamage = details[7]
-    self.description = details[8]
+    self.effectTurns = details[6]
+    self.flags = details[7]
+    self.shieldDamage = details[8]
+    self.description = details[9]
 
   def __str__(self):
     return self.display_name

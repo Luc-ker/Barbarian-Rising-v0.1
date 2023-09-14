@@ -24,7 +24,9 @@ class BattleTroop(Troop):
     elif type(troop) == Troop:
       super().__init__(troop.int_name,troop.level)
       self.weapons = troop.weapons
-      self.ownedBy = "Player"
+      self.ownedBy = troop.owner
+      if troop.owner == "Player":
+        self.attacks = troop.attacks
     else:
       raise TypeError("Not a valid troop.")
     info = get_troop_info(self.int_name)
@@ -37,7 +39,7 @@ class BattleTroop(Troop):
     self.broken = False
     self.original_action = 1000 / self.stats["speed"]
     self.action = self.original_action # AV = Action Value
-    self.attacks = [BattleAttack(x.internal_name) for x in self.attacks]
+    self.attacks = [BattleAttack(x.internal_name).convert() for x in self.attacks]
     self.base_stats = self.stats
     self.calc_stats()
 
@@ -70,17 +72,31 @@ class BattleTroop(Troop):
     self.debuffs.append(debuff)
     self.calc_stats()
 
-  def changeSpeed(self, queue, speed):
+  def haveBuff(self,buff):
+    for b in self.buffs:
+      if buff.name == b.name and buff.causedBy == b.causedBy:
+        return True
+    return False
+
+  def haveDebuff(self,debuff):
+    for d in self.debuffs:
+      if debuff.name == d.name and debuff.causedBy == d.causedBy:
+        return True
+    return False
+
+  def buff(self,name,attack,turns,stat=None,operand=None,mult=None):
+    self.addBuff(Status(name,attack,turns,stat,operand,mult))
+
+  def debuff(self,name,attack,turns,stat=None,operand=None,mult=None):
+    self.addDebuff(Status(name,attack,turns,stat,operand,mult))
+
+  def changeSpeed(self, queue, attack, speed, turns):
     if speed == 0:
       return
     elif speed > 0:
-      print(self.stats["speed"])
-      print(self.action)
-      self.addBuff(Status("Speed Buff","speed","add",speed))
-      print(self.stats["speed"])
-      print(self.action)
+      self.addBuff(Status("Speed Buff",attack,turns,"speed","add",speed))
     elif speed < 0:
-      self.addDebuff(Status("Speed Debuff","speed","minus",speed))
+      self.addDebuff(Status("Speed Debuff",attack,turns,"speed","minus",speed))
     distance = self.stats["speed"] * self.action
     self.stats["speed"] += speed
     self.updateAction()
@@ -147,6 +163,7 @@ class BattleTroop(Troop):
 
   def selectPower(self,player):
     if len(player.powers) == 0: return None
+    i = 0
     for i,x in enumerate(player.powers):
       print(f"{i+1}: {x}")
     print(f"{i+2}: Return")
@@ -166,7 +183,7 @@ class BattleTroop(Troop):
     if enemy.flying and "f" not in attack.flags:
       print("The attack couldn't reach!")
     else:
-      damage = int(attack.power/10)
+      damage = self.calc_damage(battle,attack,enemy)
       enemy.stats["hp"] -= damage
       print(f"{self.name} used {attack.display_name} and {enemy.name} was dealt {damage} damage!")
       if enemy.shield > 0 and attack.element in enemy.weaknesses:
@@ -175,6 +192,10 @@ class BattleTroop(Troop):
           enemy.shield = 0
           enemy.breakShield(battle.queue)
     return True
+
+  def calc_damage(self,battle,attack,enemy):
+    dmg = int(attack.power/10)
+    return dmg
   
   def ai(self,battle,enemy):
     #if self.ownedBy == "Player" or self.name in ["Giant"]:

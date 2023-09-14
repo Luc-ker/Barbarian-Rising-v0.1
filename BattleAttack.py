@@ -9,7 +9,7 @@ class BattleAttack(Attack):
         atk = attack_class(self.internal_name)
         return atk
 
-    def effect(self,queue,user,target): pass
+    def effect(self,battle,user,target): pass
     def slashes(self): return False
 
 class BattleAttack_000(BattleAttack):
@@ -17,9 +17,9 @@ class BattleAttack_000(BattleAttack):
     
 class BattleAttack_IncreaseUserSpd10(BattleAttack):
     def effect(self,battle,user,target):
-        user.changeSpeed(battle.queue,user.stats["speed"]*0.1)
+        user.changeSpeed(battle.queue,self,user.stats["speed"]*0.1,self.effectTurns)
         battle.queue.printActionOrder()
 
 class BattleAttack_LowerTargetDef10(BattleAttack):
     def effect(self,battle,user,target):
-        target.stats["defence"]*=0.9
+        target.debuff("Defence Reduction",self,self.effectTurns,"defence","mult",0.9)
