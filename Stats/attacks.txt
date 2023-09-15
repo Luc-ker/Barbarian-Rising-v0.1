@@ -1,28 +1,51 @@
-# internal name,display name,element,power,target,effect code,effect turns,flags,shield dmg,description
+# internal name,display name,element,power,target,effect code,effect chance,effect turns,flags,shield dmg,description
 #------------------------------------
 # Effect Code
 # 000 - No effect
 # IncreaseUserSpd10 - Increase user's speed by 10%
 # LowerTargetDef10 - Lower target's defense by 10%
 # SelfKO - KOes the user
+# BurnTarget - Burns the target
+# FreezeTarget - Freezes the target
+# Heal Ally - Heals an ally
 #------------------------------------
 # Properties
 # f = attacks flying enemies
 #------------------------------------
 # Barb Attacks
 #------------------------------------
-SLASH,Slash,PHYSICAL,50,SingleTarget,000,0,,1,The user slashes the target.
-SUPERSLASH,Super Slash,PHYSICAL,80,SingleTarget,000,0,,2,The user slashes the target.
-UPPERCUTSLASH,Uppercut Slash,PHYSICAL,65,SingleTarget,000,0,f,2,The user performs an uppercut that slashes the target.
-QUICKDRAWSLASH,Quick Draw Slash,PHYSICAL,40,SingleTarget,IncreaseUserSpd10,2,,1,The user slashes the target and increases its speed.
-LIGHTNINGSLASH,Slash,LIGHTNING,70,SingleTarget,000,0,,2,The user slashes the target with lightning.
-THUNDERCLAPSLASH,Thunder Clap Slash,LIGHTNING,40,SingleTarget,IncreaseUserSpd20,2,,1,The user slashes the target and increases its speed with lightning.
+SLASH,Slash,PHYSICAL,50,SingleTarget,000,0,0,,1,The user slashes the target.
+SUPERSLASH,Super Slash,PHYSICAL,80,SingleTarget,000,0,0,,2,The user slashes the target.
+UPPERCUTSLASH,Uppercut Slash,PHYSICAL,65,SingleTarget,000,0,0,f,2,The user performs an uppercut that slashes the target.
+QUICKDRAWSLASH,Quick Draw Slash,PHYSICAL,40,SingleTarget,IncreaseUserSpd10,0,2,,1,The user slashes the target and increases its speed.
+LIGHTNINGSLASH,Slash,LIGHTNING,70,SingleTarget,000,0,0,,2,The user slashes the target with lightning.
+THUNDERCLAPSLASH,Thunder Clap Slash,LIGHTNING,40,SingleTarget,IncreaseUserSpd20,100,2,,1,The user slashes the target and increases its speed with lightning.
 #------------------------------------
-EARTHQUAKEPUNCH,Earthquake Punch,PHYSICAL,60,SingleTarget,000,0,,1,The user punches the ground, causing an earthquake.
-SLAP,Slap,PHYSICAL,60,SingleTarget,LowerTargetDef10,2,,1,The user slaps the target, lowering its defence.
-WINDLASS,Windlass,WIND,50,SingleTarget,000,0,f,2,The user fires a bow at the target.
-GOLDRUSH,Gold Rush,WIND,40,SingleTarget,IncreaseUserSpd10,2,,1,The user attacks, increasing its speed and stealing the target's gold in the process.
-PAYDAY,Pay Day,WIND,60,SingleTarget,IncreaseUserSpd10,0,,2,The user scatters gold which explodes and double combos the target.
-EXPLOSION,Explosion,FIRE,80,Blast,SelfKO,0,f,2,The user blows itself up to deal major damage.
-PARADE,Parade,FIRE,70,SingleTarget,000,0,2,The user drops bombs onto the target.
-BALLOONSTORM,Balloon Storm,WIND,70,AoE,000,0,2,The user rushes past the target, creating a gust to attack the target.
+# Powers
+#------------------------------------
+WINDLASS,Windlass,WIND,50,SingleTarget,000,0,0,f,2,The user fires a bow at the target.
+EXPLOSION,Explosion,FIRE,80,Blast,SelfKO,100,0,f,2,The user blows itself up to deal major damage.
+FIREBALL,Fireball,FIRE,70,SingleTarget,BurnTarget,100,3,f,2,The user aims a ball of fire at the target, burning it.
+ICESHARD,Ice Shard,ICE,40,SingleTarget,FreezeTarget,30,2,f,1,The user aims a shard of ice at the target, with a chance of freezing it.
+ICEBEAM,Ice Beam,ICE,50,SingleTarget,DoublePowerAgainstFrozen,0,0,f,2,The user aims a beam of ice at the enemy, which is doubly effective against a frozen target.
+HEALPULSE,Heal Pulse,HOLY,0,SingleTarget,HealAlly,0,0,f,0,The user heals an ally.
+FIREBLAST,Fire Blast,FIRE,100,SingleTarget,000,0,0,f,3,A blast of fire is aimed at the target.
+KAMIKAZE,Kamikaze,WIND,100,SingleTarget,000,0,0,,3,The user crashes its jet into the target.
+DISCARD,Discard,DARK,60,SingleTarget,1,LowerTargetAtk30,100,3,f,The user discards a card, reducing the damage dealt by the target.
+HOLYBEAM,Holy Beam,HOLY,70,SingleTarget,000,0,0,f,2,The user aims a beam imbued with holy energy at the target.
+#------------------------------------
+# Enemy Troops (Elixir)
+#------------------------------------
+EARTHQUAKEPUNCH,Earthquake Punch,PHYSICAL,60,SingleTarget,000,0,0,,1,The user punches the ground, causing an earthquake.
+SLAP,Slap,PHYSICAL,60,SingleTarget,LowerTargetDef10,100,2,,1,The user slaps the target, lowering its defence.
+GOLDRUSH,Gold Rush,WIND,40,SingleTarget,IncreaseUserSpd10,100,2,,1,The user attacks, increasing its speed and stealing the target's gold in the process.
+PAYDAY,Pay Day,WIND,60,SingleTarget,IncreaseUserSpd10,100,2,,2,The user scatters gold which explodes and double combos the target.
+PARADE,Parade,FIRE,70,SingleTarget,000,0,0,,2,The user drops bombs onto the target.
+BALLOONSTORM,Balloon Storm,WIND,70,AoE,000,0,0,,2,The user rushes past the target, creating a gust to attack the target.
+FLAMEBREATH,Flame Breath,FIRE,60,Blast,000,0,0,f,2,The user breaths fire at the target.
+#------------------------------------
+# Enemy Troops (Dark Elixir)
+#------------------------------------
+#------------------------------------
+# Bosses
+#------------------------------------

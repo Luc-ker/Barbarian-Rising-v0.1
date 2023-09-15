@@ -10,6 +10,8 @@ class BattleAttack(Attack):
         return atk
 
     def effect(self,battle,user,target): pass
+    def additionalEffect(self,battle,user,target): pass
+    def getPower(self,battle,user,target): return self.power
     def slashes(self): return False
 
 class BattleAttack_000(BattleAttack):
