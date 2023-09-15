@@ -166,9 +166,9 @@ class BattleTroop(Troop):
     return self.attacks[int(choice)-1]
 
   def selectPower(self,player):
-    if len(player.powers) == 0: return None
+    if len(player.active_powers) == 0: return None
     i = 0
-    for i,x in enumerate(player.powers):
+    for i,x in enumerate(player.active_powers):
       print(f"{i+1}: {x}")
     print(f"{i+2}: Return")
     choice = input("Select an power to use. ")
@@ -177,9 +177,9 @@ class BattleTroop(Troop):
       choice = input("Select an power to use. ")
     if int(choice) == i+2:
       return None
-    return player.powers[int(choice)-1]
+    return player.active_powers[int(choice)-1]
 
-  def usePower(self,power,enemy):
+  def usePower(self,battle,power,enemy):
     print(f"{power} was used on {enemy.name}!")
     return True
 

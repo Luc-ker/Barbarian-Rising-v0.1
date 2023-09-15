@@ -9,6 +9,10 @@ db_builder.main()
 show_table.main()
 player = Player("A")
 player.teachAttack("QUICKDRAWSLASH")
+player.unlockPower("ARCHER")
+player.equipPower("ARCHER")
+print(player.active_powers)
+print(player.unlocked_powers)
 battler = player.barbarian
 """
 battler3 = Troop("archer")

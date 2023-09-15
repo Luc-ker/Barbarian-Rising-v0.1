@@ -29,20 +29,25 @@ class Player():
   def unlockPower(self, power):
     if type(power) != Power:
       power = Power(power)
-    elif power.display_name in [x.name for x in self.unlocked_powers]:
+    if power.display_name in [x.name for x in self.unlocked_powers]:
       print("You have already obtained that power.")
     else:
       self.unlocked_powers.append(power)
 
   def equipPower(self, power):
     if type(power) != Power:
-      raise TypeError("Not a valid power.")
-    elif power.display_name in [x.name for x in self.active_powers]:
+      power = Power(power)
+    if power.display_name in [x.name for x in self.active_powers]:
       print("You have already equipped that power.")
     else:
-      self.active_powers.append(power)
-      self.unlocked_powers.remove(power)
-
+      for i,x in enumerate(self.unlocked_powers):
+        print(i,x)
+        if power.internal_name == x.internal_name:
+          self.active_powers.append(x)
+          self.unlocked_powers.remove(x)
+          return
+      print("Power not unlocked.")
+  
   def unequipPower(self, power):
     if type(power) != Power:
       raise TypeError("Not a valid power.")
