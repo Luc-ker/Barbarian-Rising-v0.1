@@ -85,18 +85,22 @@ class BattleTroop(Troop):
     return False
 
   def buff(self,name,attack,turns,stat=None,operand=None,mult=None):
-    self.addBuff(Status(name,attack,turns,stat,operand,mult))
+    buff = Status(name,attack,turns,stat,operand,mult)
+    if not self.haveBuff(buff):
+      self.addBuff(buff)
 
   def debuff(self,name,attack,turns,stat=None,operand=None,mult=None):
-    self.addDebuff(Status(name,attack,turns,stat,operand,mult))
+    debuff = Status(name,attack,turns,stat,operand,mult)
+    if not self.haveDebuff(debuff):
+      self.addDebuff(debuff)
 
-  def changeSpeed(self, queue, attack, speed, turns):
+  def changeSpeed(self, queue, attack, turns, speed):
     if speed == 0:
       return
     elif speed > 0:
-      self.addBuff(Status("Speed Buff",attack,turns,"speed","add",speed))
+      self.buff("Speed Buff",turns,attack,"speed","add",speed)
     elif speed < 0:
-      self.addDebuff(Status("Speed Debuff",attack,turns,"speed","minus",speed))
+      self.debuff("Speed Debuff",turns,attack,"speed","minus",speed)
     distance = self.stats["speed"] * self.action
     self.stats["speed"] += speed
     self.updateAction()

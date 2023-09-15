@@ -19,7 +19,7 @@ class BattleAttack_000(BattleAttack):
     
 class BattleAttack_IncreaseUserSpd10(BattleAttack):
     def effect(self,battle,user,target):
-        user.changeSpeed(battle.queue,self,user.stats["speed"]*0.1,self.effectTurns)
+        user.changeSpeed(battle.queue,self,self.effectTurns,user.stats["speed"]*0.1)
         battle.queue.printActionOrder()
 
 class BattleAttack_LowerTargetDef10(BattleAttack):
