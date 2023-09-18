@@ -46,7 +46,11 @@ class Troop():
     self.level = level
     if info[2] != "":
       self.ability = Ability(info[2])
+
     self.attacks = make_attacks(info[3])
+    self.unlocked_attacks = []
+    self.max_attacks = 2
+
     self.stats = {
       "hp":dbstats[1],
       "attack":dbstats[2],
@@ -100,5 +104,51 @@ class Troop():
 
   def level_up(self,levels=1):
     self.level += levels
-    print(f"{self.name} gained {levels} level(s)!")
+    if levels == 1:
+      print(f"{self.name} gained {levels} level!")
+    else:
+      print(f"{self.name} gained {levels} levels!")
     self.calc_stats()
+
+  def unlockAttack(self, attack):
+    if type(attack) != Attack:
+      attack = Attack(attack)
+    if attack.internal_name in [x.internal_name for x in self.unlocked_attacks]:
+      print("Attack already unlocked.")
+    else:
+      self.unlocked_attacks.append(attack)
+      print(f"{self.name} can now use {attack.display_name}!")
+
+  def learnAttack(self,attack):
+    if type(attack) != Attack:
+      attack = Attack(attack)
+    if attack.internal_name not in [x.internal_name for x in self.unlocked_attacks]:
+      print(f"{self.name} can't learn {attack.display_name}.")
+      return
+    if len(self.attacks) >= self.max_attacks:
+      choice = "0"
+      while len(choice) < 1 or not choice.isdigit() or int(choice) < 1 or int(choice) > len(self.attacks) + 1:
+        self.show_attacks()
+        print(f"{len(self.attacks) + 1}: Return")
+        choice = input("Select an attack to replace.")
+        if len(choice) < 1:
+          pass
+        elif int(choice) == len(self.attacks) + 1:
+          return
+      else:
+        replaced = self.attacks[int(choice)-1]
+        self.attacks[int(choice)-1] = attack
+        print(f"{replaced.display_name} was forgotten for {attack.display_name}!")
+    else:
+      self.attacks.append(attack)
+      print(f"Barbarian learnt {attack.display_name}!")
+
+  def forgetAttack(self, attack):
+    if type(attack) != Attack:
+      raise TypeError("Not a valid attack.")
+    else:
+      self.attacks.remove(attack)
+
+  def show_attacks(self):
+    for i,x in enumerate(self.attacks):
+      print(f"{i+1}: {x.display_name}")

@@ -91,7 +91,7 @@ def update_attacks():
       else:
         attack = line[:-1].split(",")
 #        print(f"Creating row for {attack[0]}...")
-        desc = ",".join(attack[8:-1] + [attack[-1]])
+        desc = ",".join(attack[10:-1] + [attack[-1]])
         sqlInsertCommand = f"""INSERT INTO ATTACKS VALUES ("{attack[0]}","{attack[1]}","{attack[2]}","{attack[3]}","{attack[4]}","{attack[5]}","{attack[6]}","{attack[7]}","{attack[8]}","{attack[9]}","{desc}");"""
         cursor.execute(sqlInsertCommand)
         connection.commit()

@@ -141,16 +141,28 @@ class BattleTroop(Troop):
 
   def selectTarget(self,attack,enemies):
     i = 0
-    for i,x in enumerate(enemies):
-      print(f"{i+1}: {x.name}")
-    print(f"{i+2}: Return")
-    choice = input("Select an enemy to attack. ")
-    while not digit_range_check(choice,1,i+2):
-      print("Invalid input.")
+    if attack.target == "SingleTarget":
+      for i,x in enumerate(enemies):
+        print(f"{i+1}: {x.name}")
+      print(f"{i+2}: Return")
       choice = input("Select an enemy to attack. ")
-    if int(choice) == i+2:
-      return None
-    return int(choice)-1
+      while not digit_range_check(choice,1,i+2):
+        print("Invalid input.")
+        choice = input("Select an enemy to attack. ")
+      if int(choice) == i+2:
+        return None
+      return [int(choice)-1]
+    elif attack.target == "Blast":
+      for i,x in enumerate(enemies):
+        if i == 0 and len(enemies) > 1:
+          print(f"{i+1}: {x.name} and {enemies[i+2]}")
+      print(f"{i+2}: Return")
+      choice = input("Select enemies to attack. ")
+      while not digit_range_check(choice,1,i+2):
+        print("Invalid input.")
+        choice = input("Select an enemy to attack. ")
+      if int(choice) == i+2:
+        return None
 
   def selectAttack(self):
     i = 0
@@ -202,5 +214,7 @@ class BattleTroop(Troop):
     return dmg
   
   def ai(self,battle,enemy):
+    if self.int_name == "GIANT" and enemy.debuffs == []:
+      return self.attacks[1]
     #if self.ownedBy == "Player" or self.name in ["Giant"]:
     return random.choice(self.attacks)
