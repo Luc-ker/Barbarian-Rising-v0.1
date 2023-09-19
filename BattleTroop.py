@@ -192,6 +192,14 @@ class BattleTroop(Troop):
     return player.active_powers[int(choice)-1]
 
   def usePower(self,battle,power,enemy):
+    if power.type == "dmg":
+      pass
+    elif power.type == "Freeze":
+      pass
+    elif power.type == "heal":
+      pass
+    elif power.type == "debuff":
+      pass
     print(f"{power} was used on {enemy.name}!")
     return True
 

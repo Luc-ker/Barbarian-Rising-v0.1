@@ -8,7 +8,7 @@ def cls():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def digit_range_check(vari,min=0,max=9):
-  if len(vari) != 1 or vari.isdigit() == False or (int(vari) < min or int(vari) > max):
+  if len(vari) != 1 or vari.isdigit() is False or (int(vari) < min or int(vari) > max):
     return False
   return True
 
