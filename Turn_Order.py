@@ -51,6 +51,7 @@ class PriorityQueue():
     dequeue = self.queue[0].action
     for i in self.queue:
       i.action -= dequeue
+    return dequeue
 
   def newRound(self):
     troop = self.dequeue()

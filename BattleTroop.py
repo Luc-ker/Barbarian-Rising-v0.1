@@ -10,6 +10,14 @@ def digit_range_check(vari,min=1,max=4):
   if len(vari) != 1 or not vari.isdigit() or (int(vari) < min or int(vari) > max):
     return False
   return True
+  
+def allFlying(enemies):
+  if type(enemies) != list:
+    return enemies.flying
+  for enemy in enemies:
+    if enemy.flying is False:
+      return False
+  return True
 
 class BattleTroop(Troop):
   weaknesses = []
@@ -151,17 +159,33 @@ class BattleTroop(Troop):
         choice = input("Select an enemy to attack. ")
       if int(choice) == i+2:
         return None
-      return [int(choice)-1]
+      return int(choice)-1
     elif attack.target == "Blast":
-      for i,x in enumerate(enemies):
-        if i == 0 and len(enemies) > 1:
-          print(f"{i+1}: {x.name} and {enemies[i+2]}")
+      if len(enemies) == 1:
+        print(f"1: {enemies[0].name}")
+      else:
+        for i,x in enumerate(enemies):
+          if i == 0:
+            print(f"{i+1}: {x.name} and {enemies[i+1]}")
+          elif i == len(enemies)-1:
+            print(f"{i+1}: {x.name} and {enemies[i-1]}")
+          else:
+            print(f"{i+1}: {x.name}, {enemies[i-1]} and {enemies[i+1]}")
       print(f"{i+2}: Return")
       choice = input("Select enemies to attack. ")
       while not digit_range_check(choice,1,i+2):
         print("Invalid input.")
-        choice = input("Select an enemy to attack. ")
+        choice = input("Select enemies to attack. ")
       if int(choice) == i+2:
+        return None
+    elif attack.target == "AoE":
+      print(f"""1: {', '.join([i.name for i in enemies[:-1]])} and {enemies[-1].name}""")
+      print("2: Return")
+      choice = input("Select enemies to attack. ")
+      while not digit_range_check(choice,1,i+2):
+        print("Invalid input.")
+        choice = input("Select enemies to attack. ")
+      if int(choice) == 2:
         return None
 
   def selectAttack(self):
@@ -191,35 +215,57 @@ class BattleTroop(Troop):
       return None
     return player.active_powers[int(choice)-1]
 
-  def usePower(self,battle,power,enemy):
+  def usePower(self,battle,power,enemies):
     if power.type == "dmg":
       pass
-    elif power.type == "Freeze":
+    elif power.type == "slow":
       pass
     elif power.type == "heal":
       pass
     elif power.type == "debuff":
       pass
-    print(f"{power} was used on {enemy.name}!")
+    print(f"{power} was used on {enemies.name}!")
     return True
 
-  def attack(self,battle,attack,enemy):
-    if enemy.flying and "f" not in attack.flags:
-      print("The attack couldn't reach!")
+  def attack(self,battle,attack,user,enemies):
+    print(f"{self.name} used {attack.display_name}!")
+    if allFlying(enemies) and "f" not in attack.flags:
+      print("But the attack couldn't reach!")
+    elif type(enemies) is list:
+      for enemy in enemies:
+        self.process_attack(battle,attack,user,enemy)
     else:
-      damage = self.calc_damage(battle,attack,enemy)
-      enemy.stats["hp"] -= damage
-      print(f"{self.name} used {attack.display_name} and {enemy.name} was dealt {damage} damage!")
-      if enemy.shield > 0 and attack.element in enemy.weaknesses:
-        enemy.shield -= attack.shieldDamage
-        if enemy.shield <= 0:
-          enemy.shield = 0
-          enemy.breakShield(battle.queue)
+      self.process_attack(battle,attack,user,enemies)
     return True
+  
+  def process_attack(self,battle,attack,user,enemy):
+    if user.stats["crit_rate"] >= 100:
+      crit = True
+    else:
+      crit = (user.stats["crit_rate"] > random.randint(1,100))
+    damage = self.calc_damage(battle,attack,user,enemy,crit)
+    enemy.stats["hp"] -= damage
+    print(f"{enemy.name} was dealt {damage} damage!")
+    if enemy.shield > 0 and attack.element in enemy.weaknesses:
+      enemy.shield -= attack.shieldDamage
+      if enemy.shield <= 0:
+        enemy.shield = 0
+        enemy.breakShield(battle.queue)
 
-  def calc_damage(self,battle,attack,enemy):
-    dmg = int(attack.power/10)
-    return dmg
+  def calc_damage(self,battle,attack,user,enemy,crit):
+    critdmg = 1
+    if crit:
+      critdmg = 1.5
+    if enemy.immune(attack):
+      return 0
+    base = ((2*user.level/5+2)*attack.power*(user.stats["attack"]/enemy.stats["defence"]))/50 + 2
+    dmg = base * critdmg
+    return round(dmg)
+  
+  def immune(self,attack):
+    if self.flying and "f" not in attack.flags:
+      return True
+    return False
   
   def ai(self,battle,enemy):
     if self.int_name == "GIANT" and enemy.debuffs == []:

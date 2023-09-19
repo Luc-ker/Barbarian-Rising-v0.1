@@ -91,7 +91,10 @@ class Troop():
       "attack":stats[2],
       "defence":stats[3],
       "speed":stats[4],
-      "ability_level":stats[5]
+      "ability_level":stats[5],
+      "crit_rate": 5,
+      "damage_mult": 1,
+      "damage_reduction": 0
     })
     for weapon in self.weapons.values():
       if weapon is not None:
