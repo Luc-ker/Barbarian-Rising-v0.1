@@ -1,6 +1,16 @@
 import sqlite3
 import os
 
+def get_stats(power,level):
+  if os.path.exists("./Data/power_stats.db"):
+    connection = sqlite3.connect("./Data/power_stats.db")
+  else:
+    return
+  sqlCommand = f"""SELECT * FROM {power};"""
+  cursor = connection.cursor()
+  cursor.execute(sqlCommand)
+  return cursor.fetchall()[level-1]
+
 def get_power_info(power):
   if os.path.exists("./Data/power_info.db"):
     connection = sqlite3.connect("./Data/power_info.db")
@@ -15,6 +25,7 @@ class Power():
   def __init__(self,power,level=1):
     power = power.upper().replace(" ","")
     info = get_power_info(power)
+    dbstats = get_stats(power,level)
     if type(info) != tuple:
       raise TypeError
   
@@ -24,9 +35,10 @@ class Power():
     self.cooldown = self.initial_cooldown
     self.type = info[3]
     self.element = info[4]
-    self.target = info[5]
-    self.description = info[6]
-    self.stats = {}
+    self.shieldDamage = info[5]
+    self.target = info[6]
+    self.description = info[7]
+    self.power = dbstats[1]
     self.level = level
 
   def __str__(self):

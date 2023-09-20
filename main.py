@@ -4,24 +4,24 @@ from Weapon import Weapon
 from Battle import Battle
 from Player import Player
 
-#db_builder.main()
+db_builder.main()
 #show_table.main()
 player = Player("A")
 barb = player.barbarian
-print(barb)
-print(player.barbarian)
 
-#barb.unlockAttack("QUICKDRAWSLASH")
-barb.unlockAttack("BALLOONSTORM")
-#barb.learnAttack("QUICKDRAWSLASH")
-barb.learnAttack("BALLOONSTORM")
-barb.show_attacks()
-player.unlockPower("ARCHER")
-player.equipPower("ARCHER")
+barb.unlockAttack("FLAMEBREATH")
+#barb.unlockAttack("BALLOONSTORM")
+barb.learnAttack("FLAMEBREATH")
+#barb.learnAttack("BALLOONSTORM")
+player.unlockPower("ETITAN")
+player.equipPower("ETITAN")
+player.unlockPower("EDRAG")
+player.equipPower("EDRAG")
 """
 battler3 = Troop("archer")
 """
 
 barb.equip(Weapon("LONSDALEITESWORD"))
 barb.equip(Weapon("WOODENSHIELD"))
-battle = Battle(player,["GIANT","GIANT","GOBLIN"])
+barb.stats["crit_rate"] = 100
+battle = Battle(player, ["ARCHER", "GIANT", "GOBLIN"])

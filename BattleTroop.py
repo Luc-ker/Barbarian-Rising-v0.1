@@ -33,6 +33,7 @@ class BattleTroop(Troop):
       super().__init__(troop.int_name,troop.level)
       self.weapons = troop.weapons
       self.ownedBy = troop.owner
+      self.stats = troop.stats
       if troop.owner == "Player":
         self.attacks = troop.attacks
     else:
@@ -64,6 +65,17 @@ class BattleTroop(Troop):
           self.stats.update({buff.stat: self.stats[buff.stat]+buff.mult})
         elif buff.operand == "minus":
           self.stats.update({buff.stat: self.stats[buff.stat]-buff.mult})
+
+  def reduceShield(self,queue,shieldDmg):
+    self.shield -= shieldDmg
+    if self.shield <= 0:
+      self.shield = 0
+      self.breakShield(queue)
+
+  def faint(self,queue):
+    if self.stats["hp"] <= 0:
+      print(f"{self.name} was defeated!")
+      queue.dequeue(queue.getPos(self))
 
   def resetAV(self):
     self.action = self.original_action
@@ -157,9 +169,10 @@ class BattleTroop(Troop):
       while not digit_range_check(choice,1,i+2):
         print("Invalid input.")
         choice = input("Select an enemy to attack. ")
-      if int(choice) == i+2:
+      choice = int(choice)
+      if choice == i+2:
         return None
-      return int(choice)-1
+      return [enemies[choice-1]]
     elif attack.target == "Blast":
       if len(enemies) == 1:
         print(f"1: {enemies[0].name}")
@@ -176,8 +189,17 @@ class BattleTroop(Troop):
       while not digit_range_check(choice,1,i+2):
         print("Invalid input.")
         choice = input("Select enemies to attack. ")
-      if int(choice) == i+2:
+      choice = int(choice)
+      if choice == i+2:
         return None
+      if len(enemies) == 1:
+        return [enemies]
+      elif choice == 1:
+        return [enemies[0],enemies[1]]
+      elif choice == len(enemies):
+        return [enemies[-1],enemies[-2]]
+      else:
+        return [enemies[choice-1],enemies[choice-2],enemies[choice]]
     elif attack.target == "AoE":
       print(f"""1: {', '.join([i.name for i in enemies[:-1]])} and {enemies[-1].name}""")
       print("2: Return")
@@ -187,6 +209,7 @@ class BattleTroop(Troop):
         choice = input("Select enemies to attack. ")
       if int(choice) == 2:
         return None
+      return enemies
 
   def selectAttack(self):
     i = 0
@@ -216,16 +239,73 @@ class BattleTroop(Troop):
     return player.active_powers[int(choice)-1]
 
   def usePower(self,battle,power,enemies):
+    if len(enemies) == 1:
+      names = enemies[0].name
+    else:
+      names = f"{', '.join([i.name for i in enemies[:-1]])} and {enemies[-1].name}"
+    print(f"{power} was used on {names}!")
     if power.type == "dmg":
-      pass
+      self.usePowerEffect(battle,power,enemies,"hp")
     elif power.type == "slow":
-      pass
+      self.usePowerEffect(battle,power,enemies,"speed")
     elif power.type == "heal":
-      pass
-    elif power.type == "debuff":
-      pass
-    print(f"{power} was used on {enemies.name}!")
+      battle.barb.stats["hp"] += power.power
+    elif power.type == "weaken":
+      self.usePowerEffect(battle,power,enemies,"attack")
     return True
+
+  def usePowerEffect(self,battle,power,enemies,stat):
+    if power.target == "SingleTarget":
+      enemy = enemies[0]
+      if stat != "speed":
+        enemy.stats[stat] -= power.power
+      if stat == "hp":
+        print(f"{enemy.name} was dealt {power.power} damage!")
+      elif stat == "speed":
+        enemy.changeSpeed(power.power)
+      elif stat == "attack":
+        print(f"{enemy} was weakened!")
+      if power.element in enemy.weaknesses:
+        enemy.reduceShield(battle.queue,power.shieldDamage)
+      if enemy.stats["hp"] <= 0:
+        enemy.faint(battle.queue)
+    elif power.target == "Blast":
+      if stat != "speed":
+        for enemy in enemies:
+          if enemy == enemies[0]:
+            dmg = power.power
+            enemy.stats[stat] -= dmg
+          else:
+            dmg = round(power.power/2)
+            enemy.stats[stat] -= dmg
+          if stat == "hp":
+            print(f"{enemy.name} was dealt {dmg} damage!")
+      elif stat == "speed":
+        for enemy in enemies:
+          enemy.changeSpeed(power.power)
+      elif stat == "attack":
+        print(f"{', '.join([i.name for i in enemies[:-1]])} and {enemies[-1].name} were weakened!")
+      for enemy in enemies:
+        if power.element in enemy.weaknesses:
+          enemy.reduceShield(battle.queue,power.shieldDamage)
+        if enemy.stats["hp"] <= 0:
+          enemy.faint(battle.queue)
+    elif power.target == "AoE":
+      for enemy in enemies:
+        if stat != "speed":
+          enemy.stats[stat] -= power.power
+        if stat == "hp":
+          print(f"{enemy.name} was dealt {power.power} damage!")
+          if enemy.stats["hp"] <= 0:
+            enemy.faint(battle.queue)
+        elif stat == "speed":
+          enemy.changeSpeed(power.power)
+        elif stat == "attack":
+          print("All enemies were weakened!")
+        if power.element in enemy.weaknesses:
+          enemy.reduceShield(battle.queue,power.shieldDamage)
+        if enemy.stats["hp"] <= 0:
+          enemy.faint(battle.queue)
 
   def attack(self,battle,attack,user,enemies):
     print(f"{self.name} used {attack.display_name}!")
@@ -239,18 +319,17 @@ class BattleTroop(Troop):
     return True
   
   def process_attack(self,battle,attack,user,enemy):
-    if user.stats["crit_rate"] >= 100:
-      crit = True
-    else:
-      crit = (user.stats["crit_rate"] > random.randint(1,100))
+    crit = (user.stats["crit_rate"] >= random.randint(1,100))
+    print(crit)
+    if crit:
+      print("It was a critical hit!")
     damage = self.calc_damage(battle,attack,user,enemy,crit)
     enemy.stats["hp"] -= damage
     print(f"{enemy.name} was dealt {damage} damage!")
     if enemy.shield > 0 and attack.element in enemy.weaknesses:
-      enemy.shield -= attack.shieldDamage
-      if enemy.shield <= 0:
-        enemy.shield = 0
-        enemy.breakShield(battle.queue)
+      enemy.reduceShield(battle.queue,attack.shieldDamage)
+    if enemy.stats["hp"] <= 0:
+      enemy.faint(battle.queue)
 
   def calc_damage(self,battle,attack,user,enemy,crit):
     critdmg = 1

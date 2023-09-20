@@ -190,6 +190,7 @@ def update_power_info():
       cooldown int,
       type varchar(255),
       element varchar(255),
+      shield_damage int,
       target varchar(255),
       description varchar(510),
       PRIMARY KEY(internal_name)
@@ -204,10 +205,40 @@ def update_power_info():
         power = line[:-1].split(",")
 #        print(f"Creating row for {power[0]}...")
         desc = ",".join(power[6:-1] + [power[-1]])
-        sqlInsertCommand = f"""INSERT INTO POWERS VALUES ("{power[0]}","{power[1]}","{power[2]}","{power[3]}","{power[4]}","{power[5]}","{desc}");"""
+        sqlInsertCommand = f"""INSERT INTO POWERS VALUES ("{power[0]}","{power[1]}","{power[2]}","{power[3]}","{power[4]}","{power[5]}","{power[6]}","{desc}");"""
         cursor.execute(sqlInsertCommand)
         connection.commit()
   print("Power info database updated.")
+  
+def update_power_stats():
+  with open("./Stats/power_stats.txt", "r") as f1:
+    if os.path.exists("./Data/power_stats.db"):
+      os.remove("./Data/power_stats.db")
+    connection = sqlite3.connect("./Data/power_stats.db")
+    power = None
+    cursor = connection.cursor()
+    for line in f1:
+      if line[0] == "#" or line == "\n":
+        pass
+      elif line[0] == "[":
+        connection.commit()
+        power = line[1:-2]
+#        print(f"Creating table for {power}'s stats...")
+        sqlCreateCommand = f"""CREATE TABLE IF NOT EXISTS {power}(
+          level int,
+          power int,
+          TH_needed int,
+          PRIMARY KEY(level)
+        );"""
+        cursor = connection.cursor()
+        cursor.execute(sqlCreateCommand)
+      else:
+        stats = line[:-1].split(",")
+        sqlInsertCommand = f"""INSERT INTO {power} VALUES ("{stats[0]}","{stats[1]}","{stats[2]}");"""
+        cursor.execute(sqlInsertCommand)
+        connection.commit()
+  print("Power info database updated.")
+  
 
 def update_all():
   update_troop_stats()
@@ -216,6 +247,7 @@ def update_all():
   update_troop_info()
   update_abilities()
   update_power_info()
+  update_power_stats()
   add_update()
 
 def main():

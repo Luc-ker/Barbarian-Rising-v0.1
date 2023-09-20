@@ -59,19 +59,16 @@ class Battle():
           if choice == 1:
             attack = troop.selectAttack()
             if attack is not None: targets = troop.selectTarget(attack,self.enemyTroops)
-            if targets is not None and attack.target == "AoE":
-              attacked = troop.attack(self,attack,troop,self.enemyTroops)
-            elif targets is not None:
-              attacked = troop.attack(self,attack,troop,self.enemyTroops[targets])
+            if targets is not None: attacked = troop.attack(self,attack,troop,targets)
           elif choice == 2:
             power = troop.selectPower(self.player)
             if power is not None: targets = troop.selectTarget(power,self.enemyTroops)
-            if targets is not None: attacked = troop.usePower(self,power,self.enemyTroops[targets])
+            if targets is not None: attacked = troop.usePower(self,power,targets)
         if attack is not None:
           attack.effect(self,troop,targets)
       else:
         attack = troop.ai(self,self.barb)
-        troop.attack(self,attack,troop,self.barb)
+        troop.attack(self,attack,troop,[self.barb])
         attack.effect(self,troop,self.barb)
       if self.barb.stats["hp"] <= 0:
         input("Press Enter to retreat.")
