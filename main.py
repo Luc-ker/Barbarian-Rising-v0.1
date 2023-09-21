@@ -3,7 +3,9 @@ import show_table
 from Weapon import Weapon
 from Battle import Battle
 from Player import Player
+import Title
 
+"""
 db_builder.main()
 #show_table.main()
 player = Player("A")
@@ -17,11 +19,10 @@ player.unlockPower("ETITAN")
 player.equipPower("ETITAN")
 player.unlockPower("EDRAG")
 player.equipPower("EDRAG")
-"""
-battler3 = Troop("archer")
-"""
 
 barb.equip(Weapon("LONSDALEITESWORD"))
 barb.equip(Weapon("WOODENSHIELD"))
-barb.stats["crit_rate"] = 100
-battle = Battle(player, ["ARCHER", "GIANT", "GOBLIN"])
+#battle = Battle(player, ["ARCHER", "GIANT", "GOBLIN"])
+"""
+
+Title.main()
