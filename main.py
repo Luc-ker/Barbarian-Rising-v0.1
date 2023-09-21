@@ -25,4 +25,4 @@ barb.equip(Weapon("WOODENSHIELD"))
 #battle = Battle(player, ["ARCHER", "GIANT", "GOBLIN"])
 """
 
-Title.title()
+Title.main()
