@@ -66,6 +66,9 @@ class Battle():
             if targets is not None: attacked = troop.usePower(self,power,targets)
         if attack is not None:
           attack.effect(self,troop,targets)
+        for power in self.player.active_powers:
+          if power.cooldown >= 0:
+            power.cooldown -= 1
       else:
         attack = troop.ai(self,self.barb)
         troop.attack(self,attack,troop,[self.barb])

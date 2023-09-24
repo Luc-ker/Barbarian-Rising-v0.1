@@ -29,18 +29,25 @@ class Power():
     if type(info) != tuple:
       raise TypeError
   
-    self.internal_name = info[0]
-    self.display_name = info[1]
-    self.initial_cooldown = info[2]
-    self.cooldown = self.initial_cooldown
-    self.type = info[3]
-    self.element = info[4]
-    self.shieldDamage = info[5]
-    self.target = info[6]
-    self.description = info[7]
+    self.id = info[0]
+    self.internal_name = info[1]
+    self.display_name = info[2]
+    self.initial_cooldown = info[3]
+    self.cooldown = 0
+    self.type = info[4]
+    self.element = info[5]
+    self.shieldDamage = info[6]
+    self.target = info[7]
+    self.description = info[8]
     self.power = dbstats[1]
     self.level = level
 
   def __str__(self):
     return self.display_name
+  
+  def resetCooldown(self):
+    self.cooldown = self.initial_cooldown
+
+  def onCooldown(self):
+    return self.cooldown > 0
 

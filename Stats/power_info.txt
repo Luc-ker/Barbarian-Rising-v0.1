@@ -1,10 +1,10 @@
-#internal_name,name,cooldown,type,element,shield dmg,target,description
-ARCHER,Archer,3,dmg,WIND,2,SingleTarget,Deals Wind damage to a target.
-WALLBREAKER,Wall Breaker,1,2,WallBreak,FIRE,SingleTarget,Deals major damage to walls.
-WIZARD,Wizard,3,dmg,FIRE,2,SingleTarget,Deals Fire damage to a target.
-ICEWIZARD,Ice Wizard,4,slow,ICE,0,SingleTarget,Slows an enemy.
-HEALER,Healer,2,heal,HOLY,0,SingleTarget,Heals a target.
-BOWLER,Bowler,4,dmg,GEO,4,SingleTarget,Deals Geo damage to a target twice.
-EDRAG,Electro Dragon,5,dmg,LIGHTNING,3,Blast,Deals blast Lightning damage.
-HEADHUNTER,Headhunter,2,weaken,DARK,1,SingleTarget,Reduce damage dealt by a single target.
-ETITAN,Electro Titan,5,dmg,LIGHTNING,2,AoE,Deals AoE Lightning damage.
+#id,internal_name,name,cooldown,type,element,shield dmg,target,description
+1,ARCHER,Archer,3,dmg,WIND,2,SingleTarget,Deals Wind damage to a target.
+2,WALLBREAKER,Wall Breaker,1,WallBreak,FIRE,2,SingleTarget,Deals major damage to walls.
+3,WIZARD,Wizard,3,dmg,FIRE,2,SingleTarget,Deals Fire damage to a target.
+4,ICEWIZARD,Ice Wizard,4,slow,ICE,0,SingleTarget,Slows an enemy.
+5,HEALER,Healer,2,heal,HOLY,0,SingleTarget,Heals a target.
+6,BOWLER,Bowler,4,dmg,GEO,4,SingleTarget,Deals Geo damage to a target twice.
+7,EDRAG,Electro Dragon,5,dmg,LIGHTNING,3,Blast,Deals blast Lightning damage.
+8,HEADHUNTER,Headhunter,2,weaken,DARK,1,SingleTarget,Reduce damage dealt by a single target.
+9,ETITAN,Electro Titan,5,dmg,LIGHTNING,2,AoE,Deals AoE Lightning damage.

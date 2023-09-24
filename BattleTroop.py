@@ -231,7 +231,7 @@ class BattleTroop(Troop):
       print(f"{i+1}: {x}")
     print(f"{i+2}: Return")
     choice = input("Select an power to use. ")
-    while not digit_range_check(choice,max=i+2):
+    while not digit_range_check(choice,max=i+2) or player.active_powers[int(choice)-1].onCooldown():
       print("Invalid input.")
       choice = input("Select an power to use. ")
     if int(choice) == i+2:
@@ -252,6 +252,7 @@ class BattleTroop(Troop):
       battle.barb.stats["hp"] += power.power
     elif power.type == "weaken":
       self.usePowerEffect(battle,power,enemies,"attack")
+    power.resetCooldown()
     return True
 
   def usePowerEffect(self,battle,power,enemies,stat):

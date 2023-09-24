@@ -1,7 +1,7 @@
-# internal name,display name,weapon type,description,stats affected
+# id,internal name,display name,weapon type,description,stats affected
 #------------------------------------
-BROKENSWORD,Broken Sword,sword,attack:mult:1.05,A broken sword.
-WOODENSWORD,Wooden Sword,sword,attack:mult:1.1:damage_mult:mult:1.2,A wooden sword.
-WOODENSHIELD,Wooden Shield,shield,defence:mult:1.1:damage_reduction:plus:5,A wooden shield.
-LONSDALEITESWORD,Lonsdaleite Sword,sword,attack:mult:2.5,A legendary sword said to hold great power.
+1,BROKENSWORD,Broken Sword,sword,attack:mult:1.05,A broken sword.
+2,WOODENSWORD,Wooden Sword,sword,attack:mult:1.1:damage_mult:mult:1.2,A wooden sword.
+3,WOODENSHIELD,Wooden Shield,shield,defence:mult:1.1:damage_reduction:plus:5,A wooden shield.
+4,LONSDALEITESWORD,Lonsdaleite Sword,sword,attack:mult:2.5,A legendary sword said to hold great power.
 # A sword for every element

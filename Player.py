@@ -1,21 +1,24 @@
 from Power import Power
 from Troop import Troop
-from Attack import Attack
 from Weapon import Weapon
 
 class Player():
   name = ""
-  id = ""
+  id = None
 
   def __init__(self, name):
     self.name = name
-    self.id = ""
-    self.max_gold = 3000
-    self.max_elixir = 3000
-    self.max_d_elixir = 0
+    self.id = 0
+    self.th = 1
     self.gold = 500
     self.elixir = 500
     self.d_elixir = 0
+    self.max_gold = 3000
+    self.max_elixir = 3000
+    self.max_d_elixir = 0
+    self.gold_lv = 1
+    self.elixir_lv = 1
+    self.d_elixir_lv = 0
     self.gold_full = (self.gold == self.max_gold)
     self.elixir_full = (self.elixir == self.max_elixir)
     self.d_elixir_full = (self.d_elixir == self.max_d_elixir)
@@ -42,10 +45,9 @@ class Player():
     if power.internal_name in [x.internal_name for x in self.active_powers]:
       print("You have already equipped that power.")
     else:
-      for i,x in enumerate(self.unlocked_powers):
-        if power.internal_name == x.internal_name:
-          self.active_powers.append(x)
-          self.unlocked_powers.remove(x)
+      for i in self.unlocked_powers:
+        if power.internal_name == i.internal_name:
+          self.active_powers.append(i)
           return
       print("Power not unlocked.")
   
