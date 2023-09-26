@@ -29,6 +29,35 @@ class Player():
     self.stamina = 240
     self.weapons = []
 
+  def load(self,saveValues):
+    """CREATE TABLE IF NOT EXISTS PLAYERS(
+    id int,
+    username varchar(255),
+    password varchar(255),
+    name varchar(255),
+    th_level int,
+    gold int,
+    gold_storage_lv int,
+    elixir int,
+    elixir_storage_lv int,
+    d_elixir int,
+    d_elixir_storage_lv int,
+    barb_lv int,
+    barb_sword varchar(255),
+    barb_shield varchar(255),
+    unlocked_powers varchar(255),
+    active_powers varchar(255),
+    power_limit int,
+    weapons varchar(510),
+    stamina int,
+    last_login float,
+    PRIMARY KEY(id)
+  );"""
+    self.id = saveValues[0]
+    self.name = saveValues[3]
+    self.th = saveValues[4]
+    self.gold = saveValues[5]
+
   def unlockPower(self, power):
     if type(power) != Power:
       power = Power(power)

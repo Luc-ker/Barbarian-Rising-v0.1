@@ -245,10 +245,11 @@ def update_power_stats():
 def create_player_table():
   connection = sqlite3.connect("./Data/player_data.db")
   cursor = connection.cursor()
-  sqlCreateCommand = f"""CREATE TABLE IF NOT EXISTS PLAYERS(
+  sqlCreateCommand = """CREATE TABLE IF NOT EXISTS PLAYERS(
     id int,
     username varchar(255),
     password varchar(255),
+    name varchar(255),
     th_level int,
     gold int,
     gold_storage_lv int,
